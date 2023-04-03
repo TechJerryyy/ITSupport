@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITSupport.WebUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ITSupport.WebUI.Controllers
 {
+    [UserAuth]
     public class HomeController : Controller
     {
         public ActionResult Index()

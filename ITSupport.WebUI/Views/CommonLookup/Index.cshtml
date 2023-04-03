@@ -1,0 +1,127 @@
+﻿@*@model IEnumerable<ITSTMSystem.Core.Models.CommonLookup>*@
+@using Kendo.Mvc.UI
+@using ITSupport.Core.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center;color:navy">CommonLookup</h2>
+<p style="text-align-last:end">
+    <a onclick="Create()" class="btn btn-success" data-toggle="modal">Add New</a>
+</p>
+
+@(Html.Kendo().Grid<CommonLookup>().Name("CommonLookupGrid").NoRecords("No records found!").Columns(columns=>
+{
+    columns.Bound(c=>c.ConfigName).Width(70);
+    columns.Bound(c =>c.ConfigKey).Width(70);
+    columns.Bound(c=>c.ConfigValue).Width(70);
+    columns.Bound(c=>c.DisplayOrder).Width(70);
+    //columns.Bound(c=>c.Description).Width(70);
+    columns.Bound(c => c.IsActive).Width(70);
+
+    columns.Command(command => { command.Custom("Edit").Click("Create").IconClass("k-i-edit").Text(" "); command.Custom("Delete").Click("ConfirmDelete").IconClass("k-i-delete").Text(" "); }).Width(70);
+
+})
+.HtmlAttributes(new { style = "heigh: 550px" })
+.Groupable()
+.Search(s =>
+{
+    s.Field(o => o.ConfigName, "contains");
+    s.Field(o => o.ConfigKey, "contains");
+    s.Field(o => o.ConfigValue, "contains");
+    s.Field(o => o.DisplayOrder, "eq");
+    //s.Field(o => o.Description, "contains");
+})
+.Scrollable()
+.Filterable()
+.Sortable()
+.ToolBar(t => t.Search())
+.Pageable()
+.Resizable(resize => resize.Columns(true))
+.DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetCommonLookups", "CommonLookup"))
+.PageSize(5))
+)
+
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>*@
+
+<div class="modal fade" id="CLModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="commonLookupform">
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ConfirmDeleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="confirm">
+            <div class="modal-header">
+                <span class="modal-title"><i class="glyphicon glyphicon-alert" style="font-size: 30px; color: red;"></i></span>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want to Delete this.</h4>
+
+            </div>
+            <input type="hidden" id="hdnDeleteId" />
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a onclick="Deleteconfirmed()" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var isSaveClicked = false;
+    function Create(e) {
+        if (e === undefined) {
+            Id = 0;
+        }
+        else {
+            e.preventDefault();
+            var d = this.dataItem($(e.currentTarget).closest("tr"));
+            Id = d.Id;
+        }
+        isSaveClicked = false;
+        var url = '';
+        if (Id == 0) {
+            url = "/CommonLookup/Create";
+        }
+        else {
+            Id == d.Id;
+            isSaveClicked = true;
+            url = "/CommonLookup/Create?Id=" + Id;
+        }
+
+        $("#commonLookupform").load(url, function () {
+            $("#CLModal").modal("show");
+
+        })
+
+    }
+
+</script>
+<script>
+    function ConfirmDelete(e) {
+        var d = this.dataItem($(e.currentTarget).closest("tr"));
+        Id = d.Id;
+        $('#ConfirmDeleteModal').modal("show");
+        $('#hdnDeleteId').val(Id);
+    }
+    function Deleteconfirmed(Id) {
+        var Id = $('#hdnDeleteId').val();
+        $.ajax({
+            type: 'POST',
+            url: "/CommonLookup/Delete?Id=" + Id,
+            success: function () {
+                $('#ConfirmDeleteModal').modal("hide");
+                location.reload();
+            }
+        })
+
+    }
+</script>

@@ -1,0 +1,48 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupport.Core.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center;color:darkslategrey">Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+@(Html.Kendo().Grid<UserViewModel>().Name("UserGrid").NoRecords("No records found!").Columns(columns=>
+{
+    columns.Bound(c=>c.Name).Width(70);
+    columns.Bound(c =>c.UserName).Width(70);
+    columns.Bound(c=>c.Email).Width(70);
+    columns.Bound(c=>c.MobileNumber).Width(70);
+    columns.Bound(c=>c.Gender).Width(70);
+    columns.Bound(c => c.RoleName).Width(70);
+
+    columns.Template(t => { })
+            .ClientTemplate(
+                "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-primary'><i class='glyphicon glyphicon-pencil'/></a>").Width(30);
+    columns.Template(t => { }).ClientTemplate(
+                "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='btn btn-danger'><i class='glyphicon glyphicon-trash'/></a>").Width(30);
+})
+.HtmlAttributes(new { style = "heigh: 550px" })
+.Groupable()
+.Search(s =>
+{
+    s.Field(o => o.Name, "contains");
+    s.Field(o => o.UserName, "contains");
+    s.Field(o => o.Email, "contains");
+    s.Field(o => o.MobileNumber, "contains");
+    s.Field(o => o.Gender, "contains");
+    s.Field(o => o.RoleName, "contains");
+})
+.Scrollable()
+.Filterable()
+.Sortable()
+.ToolBar(t => t.Search())
+.Pageable()
+.Resizable(resize => resize.Columns(true))
+.DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllUsers", "User"))
+.PageSize(5))
+)

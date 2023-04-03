@@ -1,0 +1,74 @@
+﻿@*@model IEnumerable<ITSupport.Core.Models.Role>*@
+@using Kendo.Mvc.UI
+@using ITSupport.Core.ViewModels
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2 style="text-align:center;color:darkslategrey">Index</h2>
+<p>
+        @Html.ActionLink("Create New", "Create",null,new { @class = "btn btn-primary"})
+</p>
+
+
+@(Html.Kendo().Grid<RoleViewModel>().Name("RoleGrid").NoRecords("No records found!").Columns(columns=>
+{
+    columns.Bound(c=>c.Name).Width(100);
+    columns.Bound(c=>c.Code).Width(100);
+    columns.Template(t => { })
+            .ClientTemplate(
+                "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-primary'><i class='glyphicon glyphicon-pencil'/></a>").Width(11);
+    columns.Template(t => { }).ClientTemplate(
+                "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'><i class='glyphicon glyphicon-trash'/></a>").Width(11);
+    //columns.Command(command => { command.Custom("Edit"); command.Destroy(); }).Width(200);
+})
+.HtmlAttributes(new { style = "heigh: 550px" })
+.Editable(editable => editable.Mode(GridEditMode.InLine))
+.Groupable()
+.Search(s =>
+{
+    s.Field(o => o.Name, "contains");
+    s.Field(o => o.Code, "contains");
+})
+.Scrollable()
+.Filterable()
+.Sortable()
+.ToolBar(t => t.Search())
+.Pageable()
+.DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllRolesJson", "Role"))
+.Destroy(destroy => destroy.Action("Delete", "Role"))
+.PageSize(5))
+)
+
+@*<table class="table table-responsive">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class= "btn btn-primary"}) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id },  new { @class = "btn btn-danger" })
+
+                </td>
+            </tr>
+         }
+    </table>*@
+
+

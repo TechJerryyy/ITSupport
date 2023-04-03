@@ -25,6 +25,11 @@ namespace ITSupport.WebUI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new ScriptBundle("~/Kendo").Include("~/Kendo/js/jquery.min.js", "~/Kendo/js/kendo.all.min.js", "~/Kendo/js/kendo.aspnetmvc.min.js"));
+            //not needed becuse files not found in styles...
+            bundles.Add(new StyleBundle("~/Kendo/styles").Include("~/Kendo/styles/kendo.common.min.css",
+                "~/Kendo/styles/kendo.default.min.css"));
+            bundles.IgnoreList.Clear();
         }
     }
 }
