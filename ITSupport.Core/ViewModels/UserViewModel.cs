@@ -9,7 +9,7 @@ namespace ITSupport.Core.ViewModels
 {
     public class UserViewModel
     {
-        [Required(ErrorMessage = "User Name is Required")]
+        [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
         [Required(ErrorMessage = "User Name is Required")]
         public string UserName { get; set; }
@@ -34,7 +34,7 @@ namespace ITSupport.Core.ViewModels
         [Display(Name = "Role")]
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
-        [Required(ErrorMessage = "Please Select Role")]
+        //[Required(ErrorMessage = "Please Select Role")]
         public List<DropDown> dropDowns { get; set; }
     }
 

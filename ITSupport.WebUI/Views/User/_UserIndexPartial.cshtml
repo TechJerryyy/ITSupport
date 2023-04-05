@@ -1,19 +1,7 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.ViewModels
-
-@{
-    ViewBag.Title = "Index";
-}
-<div id="UserManagement">
-    <div class="align-center align-between pb20">
-        <h2>User Management</h2>
-        <div class="btnDiv">
-            @Html.ActionLink("+ Add New User", "Create")
-        </div>
-    </div>
-
-    <div class="tableDiv">
-        @(Html.Kendo().Grid<UserViewModel>().Name("UserGrid").NoRecords("No records found!").Columns(columns=>
+@Styles.Render("~/Content/css")
+@(Html.Kendo().Grid<UserViewModel>().Name("UserGrid").NoRecords("No records found!").Columns(columns=>
 {
     columns.Bound(c=>c.Name).Width(70);
     columns.Bound(c =>c.UserName).Width(70);
@@ -47,5 +35,3 @@
 .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllUsers", "User"))
 .PageSize(5))
 )
-    </div>
-</div>

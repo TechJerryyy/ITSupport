@@ -23,10 +23,13 @@ namespace ITSupport.Services.Services
         public User Login(LoginViewModel model)
         {
             User user = _loginRepository.Login(model);
-            string hash = HashPasword(model.Password, user.PasswordSalt);
-            if (hash.SequenceEqual(user.Password))
+            if (user != null)
             {
-                return user;
+                string hash = HashPasword(model.Password, user.PasswordSalt);
+                if (hash.SequenceEqual(user.Password))
+                {
+                    return user;
+                }
             }
             return null;
 

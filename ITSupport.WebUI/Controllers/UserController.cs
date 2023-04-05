@@ -41,18 +41,26 @@ namespace ITSupport.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(UserViewModel model)
         {
-
-            var user = _userService.CreateUser(model);
-            if (user != null)
+            if (!ModelState.IsValid)
             {
-                ViewBag.message = user;
                 model.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
                 return View(model);
             }
             else
             {
-                return RedirectToAction("Index");
+                var user = _userService.CreateUser(model);
+                if (user != null)
+                {
+                    ViewBag.message = user;
+                    model.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
             }
+            
 
         }
         public ActionResult Edit(Guid Id)
@@ -66,19 +74,17 @@ namespace ITSupport.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(UserViewModel model)
         {
-
-            var user = _userService.EditUser(model);
-            if (user != null)
-            {
-                ViewBag.message = user;
-                model.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                return View(model);
-            }
-            else
-            {
-                return RedirectToAction("Index");
-            }
-
+                var user = _userService.EditUser(model);
+                if (user != null)
+                {
+                    ViewBag.message = user;
+                    model.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                    return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
         }
         public ActionResult Delete(Guid Id)
         {
@@ -97,7 +103,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult ConfirmDelete(Guid Id)
         {
             _userService.DeleteUser(Id);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Admin");
         }
     }
 }

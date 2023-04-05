@@ -40,15 +40,24 @@ namespace ITSupport.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
-            var role = _roleService.CreateRole(model);
-            if (role != null)
+            if (!ModelState.IsValid)
             {
-                ViewBag.message = role;
+
                 return View(model);
             }
             else
             {
-                return RedirectToAction("Index");
+                var role = _roleService.CreateRole(model);
+                if (role != null)
+                {
+                    ViewBag.message = role;
+                    return View(model);
+                }
+                else
+                {
+                    TempData["PageSelected"] = "RoleManagement";
+                    return RedirectToAction("Index", "Admin");
+                }
             }
         }
 
@@ -71,7 +80,8 @@ namespace ITSupport.WebUI.Controllers
             }
             else
             {
-                return RedirectToAction("Index");
+                TempData["PageSelected"] = "RoleManagement";
+                return RedirectToAction("Index", "Admin");
             }
         }
         public ActionResult Delete(Guid Id)
@@ -83,7 +93,8 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Delete(RoleViewModel model)
         {
             _roleService.DeleteRole(model);
-            return RedirectToAction("Index");
+            TempData["PageSelected"] = "RoleManagement";
+            return RedirectToAction("Index", "Admin");
         }
 
 

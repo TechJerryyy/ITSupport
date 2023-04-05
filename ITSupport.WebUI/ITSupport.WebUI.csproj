@@ -427,12 +427,22 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="css\login.css" />
+    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Images\aakash-informatics-squareLogo-1615467716612.png" />
+    <Content Include="Images\down-arrow.svg" />
+    <Content Include="Images\edit.svg" />
+    <Content Include="Images\eye.svg" />
+    <Content Include="Images\key.svg" />
     <Content Include="Images\loading.gif" />
+    <Content Include="Images\login-bg.jpg" />
+    <Content Include="Images\logo.svg" />
+    <Content Include="Images\search.svg" />
+    <Content Include="Images\trash.svg" />
     <Content Include="Kendo\js\angular.min.js" />
     <Content Include="Kendo\js\cultures\kendo.culture.aa-DJ.min.js" />
     <Content Include="Kendo\js\cultures\kendo.culture.aa-ER.min.js" />
@@ -5091,6 +5101,10 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutMenu.cshtml" />
+    <Content Include="Views\Role\_RoleIndexPartial.cshtml" />
+    <Content Include="Views\User\_UserIndexPartial.cshtml" />
+    <Content Include="Views\CommonLookup\_CommonLookupPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

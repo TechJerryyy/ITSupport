@@ -1,4 +1,5 @@
 ﻿@model ITSupport.Core.Models.CommonLookup
+@Styles.Render("~/Content/css")
 <div class="modal-header">
     @if (Model.IsEdit)
     {<span class="modal-title">Edit CommonLookup </span>
@@ -13,7 +14,7 @@
         <div id="CommonLookupError"></div>
         <div>
             <label>Config Name:</label>
-            @Html.TextBoxFor(model => model.ConfigName, new { @class = "form-control", @placeholder = "Enter Config Name", @id = "ConfigName", onkeyup= "ValidationMessage()" })
+            @Html.TextBoxFor(model => model.ConfigName, new { @class = "form-control", @placeholder = "Enter Config Name", @id = "ConfigName", onkeyup = "ValidationMessage()" })
             <span id="configNameError" style="color:red"></span>
         </div>
         <br />
@@ -44,7 +45,7 @@
             @Html.CheckBoxFor(model => model.IsActive, new { @class = "", @id = "isactive" })
         </div>
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.IsEdit, new { @id="IsEdit"})
+        @Html.HiddenFor(model => model.IsEdit, new { @id = "IsEdit" })
     </form>
     <div class="modal-footer" style="align-content:flex-end">
         <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
@@ -60,7 +61,7 @@
 
 
 <script>
-    
+
     function CLSave() {
         /*debugger;*/
         isSaveClicked = true;
@@ -72,7 +73,7 @@
 
         if (configName != '' && configKey != '' && configValue != '') {
             var url = IsEdit == 'False' ? '/CommonLookup/Create' : '/CommonLookup/Edit';
-            
+
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -84,19 +85,30 @@
                     }
                     else {
                         $("#CLModal").modal("hide");
-                        location.reload();
+                        //location.reload();
+                        $.ajax({
+                            type: 'GET',
+                            url: "/CommonLookup/Index",
+                            success: function () {
+                                //location.reload();
+                            }
+                        }).done(function (partialViewResult) {
+                            $("#CommonLookupTable").html(partialViewResult);
+                            $("#CLModal").modal("hide");
+                            $('.modal-backdrop').remove();
+                        });
                     }
-                   
+
                 }
             })
         }
         else {
             ValidationMessage();
-        }    
+        }
     }
 
     function ValidationMessage() {
-       
+
         if (isSaveClicked) {
             var configName = $("#ConfigName").val();
             var configKey = $("#ConfigKey").val();
@@ -123,7 +135,7 @@
                 $("#configValueError").text("")
             }
         }
-       
+
     }
-    
+
 </script>

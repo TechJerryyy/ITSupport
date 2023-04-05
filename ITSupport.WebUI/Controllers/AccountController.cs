@@ -23,6 +23,8 @@ namespace ITSupport.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

@@ -25,7 +25,7 @@ namespace ITSupport.WebUI.Controllers
         {
             List<CommonLookup> commonLookups = _commonLookupService.GetCommonLookups().ToList();
             //ViewBag.CommonLookups = commonLookups.ToDataSourceResult(request);
-            return View(commonLookups.ToDataSourceResult(request));
+            return PartialView("_CommonLookupPartial",commonLookups.ToDataSourceResult(request));
         }
         public ActionResult GetCommonLookups([DataSourceRequest] DataSourceRequest request)
         {
@@ -51,32 +51,35 @@ namespace ITSupport.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(CommonLookup model)
         {
+                var commonLookupData = _commonLookupService.Create(model);
+                if (commonLookupData != null)
+                {
+                    return Content("True");
+                }
+                else
+                {
+                    TempData["PageSelected"] = "CommonLookupManagement";
+                    return Content("False");
+                }           
 
-            var commonLookupData = _commonLookupService.Create(model);
-            if (commonLookupData != null)
-            {
-                return Content("True");
-            }
-            else
-            {
-                return Content("False");
-            }
             //return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult Edit(CommonLookup model)
         {
-            var commonLookupData = _commonLookupService.Edit(model);
-            if (commonLookupData != null)
-            {
-                return Content("True");
-            }
-            else
-            {
-                return Content("False");
-            }
-            //return RedirectToAction("Index");
+                var commonLookupData = _commonLookupService.Edit(model);
+                TempData["PageSelected"] = "CommonLookupManagement";
+                if (commonLookupData != null)
+                {
+                    return Content("True");
+                }
+                else
+                {
+
+                    return Content("False");
+                }
+                //return RedirectToAction("Index");
         }
         //public ActionResult Delete(Guid Id)
         //{
@@ -88,8 +91,10 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Delete(Guid Id)
         {
             CommonLookup commonLookup = _commonLookupService.GetCommonLookup(Id);
-            _commonLookupService.Delete(commonLookup);
-            return RedirectToAction("Index");
+            TempData["PageSelected"] = "CommonLookupManagement";
+            _commonLookupService.Delete(commonLookup);            
+            //return RedirectToAction("Index", "Admin");
+            return PartialView("_CommonLookupPartial");
         }
     }
 }

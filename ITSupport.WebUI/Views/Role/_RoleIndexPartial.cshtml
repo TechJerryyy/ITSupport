@@ -1,19 +1,8 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.ViewModels
-@{
-    ViewBag.Title = "Index";
-}
 
-<div id="RoleManagement">
-    <div class="align-center align-between pb20">
-        <h2>Role Management</h2>
-        <div class="btnDiv">
-            @Html.ActionLink("+ Add New Role", "Create")
-        </div>
-    </div>
-
-    <div class="tableDiv">
-        @(Html.Kendo().Grid<RoleViewModel>().Name("RoleGrid").NoRecords("No records found!").Columns(columns=>
+@Styles.Render("~/Content/css")
+@(Html.Kendo().Grid<RoleViewModel>().Name("RoleGrid").NoRecords("No records found!").Columns(columns=>
     {
     columns.Bound(c=>c.Name).Width(100);
     columns.Bound(c=>c.Code).Width(100);
@@ -40,6 +29,4 @@
     .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllRolesJson", "Role"))
     .Destroy(destroy => destroy.Action("Delete", "Role"))
     .PageSize(5))
-    )
-    </div>
-</div>
+)

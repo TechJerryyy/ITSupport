@@ -14,6 +14,7 @@ namespace ITSupport.WebUI.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            string res = TempData["PageSelected"] as string;
             return View();
         }
     }

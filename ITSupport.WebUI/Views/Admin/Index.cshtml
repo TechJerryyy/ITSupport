@@ -2,28 +2,92 @@
 @{
     ViewBag.Title = "Index";
 }
-
-@if (Session["UserName"] != null)
-{
-    <h2> Admin Pages </h2>
-
-    <div class="col-md-6">
-        <h4> Role </h4>
-        <div class="list-group">
-            @Html.ActionLink("Role", "Index", "Role", null, new { @class = "list-group-item" })
+<div class="section">
+    <div class="container">
+        <div class="topTitleHead pb20">
+            <h2>Systems</h2>
+        </div>
+        <!----- Tabs ---->
+        <div class="tab">
+            <ul class="align-center">
+                <li> <a id="UsereManagementTab" class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
+                <li> <a id="RoleManagementTab" class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
+                <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')">Settings </a> </li>
+                <li> <a id="ActivityManagementTab" class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
+                <li> <a id="ErrorlogsTab" class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
+                @*<li>@Html.ActionLink("User Management", "Index", "User", null, new { @class = "tablinks" })</li>
+                    <li>@Html.ActionLink("Role Management", "Index", "Role", null, new { @class = "tablinks" })</li>
+                    <li>@Html.ActionLink("CommonLookup Management", "Index", "CommonLookup", null, new { @class = "tablinks" })</li>*@
+            </ul>
+        </div>
+        <div class="tabContentDetails">
+            <div id="UserManagement" class="tabcontent" style="display:block">
+                <div class="align-center align-between pb20">
+                    <h2>User Management</h2>
+                    <div class="btnDiv">
+                        @Html.ActionLink("+ Add New User", "Create", "User")
+                    </div>
+                </div>
+                <div class="tableDiv">
+                    @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")
+                </div>
+            </div>
+            <div id="RoleManagement" class="tabcontent">
+                <div class="align-center align-between pb20">
+                    <h2>Role Management</h2>
+                    <div class="btnDiv">
+                        @Html.ActionLink("+ Add New Role", "Create", "Role")
+                    </div>
+                </div>
+                <div class="tablediv">
+                    @Html.Partial("~/Views/Role/_RoleIndexPartial.cshtml")
+                </div>
+            </div>
+            <div id="CommonLookupManagement" class="tabcontent">
+                <div class="align-center align-between pb20">
+                    <h2>CommonLookup Management</h2>
+                    <div class="btnDiv">
+                        <a onclick="Create()" class="btn" data-toggle="modal">+ Add New CommonLookup</a>
+                    </div>
+                </div>
+                <div class="tablediv" id="CommonLookupTable">
+                    @Html.Partial("~/Views/CommonLookup/_CommonLookupPartial.cshtml")
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <h4> User </h4>
-        <div class="list-group">
-            @Html.ActionLink("User", "Index", "User", null, new { @class = "list-group-item" })
-        </div>
-    </div>
-    <div class="col-md-6">
-        <h4> CommonLookUp </h4>
-        <div class="list-group">
-            @Html.ActionLink("CommonLookUp", "Index", "CommonLookUp", null, new { @class = "list-group-item" })
-        </div>
-    </div>
+    <!----- END Tabs ---->
+    
+</div>
+<!-- END Section -->
 
-}
+
+<script>
+    $(document).ready(function () {
+        var data = '@TempData["PageSelected"]';
+        if (data != '') {
+            openSystems(null, data);
+        }
+       
+    });
+
+    function openSystems(evt, SystemsName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(SystemsName).style.display = "block";
+        if (evt != null) {
+            evt.currentTarget.className += " active";
+        }
+        else {
+            document.getElementById(SystemsName + "Tab").className += " active";
+        }
+    }
+
+</script>

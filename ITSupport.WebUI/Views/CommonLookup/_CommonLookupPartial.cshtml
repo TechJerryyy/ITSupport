@@ -1,21 +1,8 @@
 ﻿@*@model IEnumerable<ITSTMSystem.Core.Models.CommonLookup>*@
 @using Kendo.Mvc.UI
 @using ITSupport.Core.Models
-
-@{
-    ViewBag.Title = "Index";
-}
 @Styles.Render("~/Content/css")
-<div id="CommonLookupManagement">
-    <div class="align-center align-between pb20">
-        <h2>CommonLookup Management</h2>
-        <div class="btnDiv">
-            <a onclick="Create()" class="btn" data-toggle="modal">+ Add New</a>
-        </div>
-    </div>
-
-    <div class="tableDiv">
-        @(Html.Kendo().Grid<CommonLookup>().Name("CommonLookupGrid").NoRecords("No records found!").Columns(columns=>
+@(Html.Kendo().Grid<CommonLookup>().Name("CommonLookupGrid").NoRecords("No records found!").Columns(columns=>
 {
     columns.Bound(c=>c.ConfigName).Width(70);
     columns.Bound(c =>c.ConfigKey).Width(70);
@@ -46,21 +33,18 @@
 .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetCommonLookups", "CommonLookup"))
 .PageSize(5))
 )
-        @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-            <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-            <script src="~/Scripts/bootstrap.min.js"></script>*@
-    </div>
-
-    <div class="modal fade" id="CLModal">
-        <div class="modal-dialog">
-            <div class="modal-content" id="commonLookupform">
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+<div class="modal fade" id="CLModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="commonLookupform">
 
 
-            </div>
         </div>
     </div>
-
 </div>
+
 
 
 <div class="modal fade" id="ConfirmDeleteModal">
@@ -128,9 +112,20 @@
             url: "/CommonLookup/Delete?Id=" + Id,
             success: function () {
                 $('#ConfirmDeleteModal').modal("hide");
-                location.reload();
+                $.ajax({
+                    type: 'GET',
+                    url: "/CommonLookup/Index",
+                    success: function () {
+                        //location.reload();
+                    }
+                }).done(function (partialViewResult) {
+                    $("#CommonLookupTable").html(partialViewResult);
+                    /*$("#CLModal").modal("hide");*/
+                    $('.modal-backdrop').remove();
+                });
             }
         })
 
     }
 </script>
+
