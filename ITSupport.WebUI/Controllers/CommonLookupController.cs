@@ -20,11 +20,9 @@ namespace ITSupport.WebUI.Controllers
             _commonLookupService = commonLookupService;
         }
         [AllowAnonymous]
-        // GET: CommonLookup
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<CommonLookup> commonLookups = _commonLookupService.GetCommonLookups().ToList();
-            //ViewBag.CommonLookups = commonLookups.ToDataSourceResult(request);
             return PartialView("_CommonLookupPartial",commonLookups.ToDataSourceResult(request));
         }
         public ActionResult GetCommonLookups([DataSourceRequest] DataSourceRequest request)
@@ -46,7 +44,6 @@ namespace ITSupport.WebUI.Controllers
                 commonLookup.IsEdit = true;
                 return PartialView("_CLPartial", commonLookup);
             }
-            //return View();
         }
         [HttpPost]
         public ActionResult Create(CommonLookup model)
@@ -61,8 +58,6 @@ namespace ITSupport.WebUI.Controllers
                     TempData["PageSelected"] = "CommonLookupManagement";
                     return Content("False");
                 }           
-
-            //return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -79,13 +74,7 @@ namespace ITSupport.WebUI.Controllers
 
                     return Content("False");
                 }
-                //return RedirectToAction("Index");
         }
-        //public ActionResult Delete(Guid Id)
-        //{
-        //    CommonLookup commonLookup = _commonLookupService.GetCommonLookup(Id);
-        //    return View(commonLookup);
-        //}
         [HttpPost]
 
         public ActionResult Delete(Guid Id)
@@ -93,7 +82,6 @@ namespace ITSupport.WebUI.Controllers
             CommonLookup commonLookup = _commonLookupService.GetCommonLookup(Id);
             TempData["PageSelected"] = "CommonLookupManagement";
             _commonLookupService.Delete(commonLookup);            
-            //return RedirectToAction("Index", "Admin");
             return PartialView("_CommonLookupPartial");
         }
     }

@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<ITSTMSystem.Core.Models.CommonLookup>*@
-@using Kendo.Mvc.UI
+﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.Models
 
 @{
@@ -21,7 +20,6 @@
     columns.Bound(c =>c.ConfigKey).Width(70);
     columns.Bound(c=>c.ConfigValue).Width(70);
     columns.Bound(c=>c.DisplayOrder).Width(70);
-    //columns.Bound(c=>c.Description).Width(70);
     columns.Bound(c => c.IsActive).Width(70);
 
     columns.Command(command => { command.Custom("Edit").Click("Create").IconClass("k-i-edit").Text(" "); command.Custom("Delete").Click("ConfirmDelete").IconClass("k-i-delete").Text(" "); }).Width(70);
@@ -35,7 +33,6 @@
     s.Field(o => o.ConfigKey, "contains");
     s.Field(o => o.ConfigValue, "contains");
     s.Field(o => o.DisplayOrder, "eq");
-    //s.Field(o => o.Description, "contains");
 })
 .Scrollable()
 .Filterable()
@@ -46,9 +43,6 @@
 .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetCommonLookups", "CommonLookup"))
 .PageSize(5))
 )
-        @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-            <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-            <script src="~/Scripts/bootstrap.min.js"></script>*@
     </div>
 
     <div class="modal fade" id="CLModal">
@@ -61,7 +55,6 @@
     </div>
 
 </div>
-
 
 <div class="modal fade" id="ConfirmDeleteModal">
     <div class="modal-dialog">
@@ -104,15 +97,12 @@
             isSaveClicked = true;
             url = "/CommonLookup/Create?Id=" + Id;
         }
-
         $("#commonLookupform").load(url, function () {
             debugger;
             $("#CLModal").modal("show");
 
         })
-
     }
-
 </script>
 <script>
     function ConfirmDelete(e) {
@@ -131,6 +121,5 @@
                 location.reload();
             }
         })
-
     }
 </script>

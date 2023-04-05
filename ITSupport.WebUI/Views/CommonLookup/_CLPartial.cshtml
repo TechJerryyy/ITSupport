@@ -63,7 +63,6 @@
 <script>
 
     function CLSave() {
-        /*debugger;*/
         isSaveClicked = true;
         var form = $("#Lookupform").serialize();
         var IsEdit = $("#IsEdit").val();
@@ -85,12 +84,10 @@
                     }
                     else {
                         $("#CLModal").modal("hide");
-                        //location.reload();
                         $.ajax({
                             type: 'GET',
                             url: "/CommonLookup/Index",
                             success: function () {
-                                //location.reload();
                             }
                         }).done(function (partialViewResult) {
                             $("#CommonLookupTable").html(partialViewResult);
@@ -137,5 +134,4 @@
         }
 
     }
-
 </script>

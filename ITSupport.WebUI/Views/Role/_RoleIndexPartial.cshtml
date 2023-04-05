@@ -11,7 +11,6 @@
                 "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-pencil'/></a>").Width(11);
     columns.Template(t => { }).ClientTemplate(
                 "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-trash'/></a>").Width(11);
-    //columns.Command(command => { command.Custom("Edit"); command.Destroy(); }).Width(200);
     })
     .HtmlAttributes(new { style = "heigh: 550px" })
     .Editable(editable => editable.Mode(GridEditMode.InLine))

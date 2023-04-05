@@ -15,10 +15,7 @@
                 <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')">Settings </a> </li>
                 <li> <a id="ActivityManagementTab" class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
                 <li> <a id="ErrorlogsTab" class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
-                @*<li>@Html.ActionLink("User Management", "Index", "User", null, new { @class = "tablinks" })</li>
-                    <li>@Html.ActionLink("Role Management", "Index", "Role", null, new { @class = "tablinks" })</li>
-                    <li>@Html.ActionLink("CommonLookup Management", "Index", "CommonLookup", null, new { @class = "tablinks" })</li>*@
-            </ul>
+           </ul>
         </div>
         <div class="tabContentDetails">
             <div id="UserManagement" class="tabcontent" style="display:block">
@@ -56,8 +53,7 @@
             </div>
         </div>
     </div>
-    <!----- END Tabs ---->
-    
+    <!----- END Tabs ---->    
 </div>
 <!-- END Section -->
 
@@ -89,5 +85,4 @@
             document.getElementById(SystemsName + "Tab").className += " active";
         }
     }
-
 </script>

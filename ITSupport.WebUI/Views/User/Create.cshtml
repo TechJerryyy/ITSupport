@@ -65,12 +65,10 @@
                     <div class="radioBtnSection">
                         <div class="radioBtnDiv">
                             Female @Html.RadioButtonFor(model => model.Gender, "Female")
-                            @*<input type="radio" checked="checked" id="female" name="radio">*@
                             <span class="checkmark"></span>
                         </div>
                         <div class="radioBtnDiv">
                             Male @Html.RadioButtonFor(model => model.Gender, "Male")
-                            @*<input type="radio" id="male" name="radio">*@
                             <span class="checkmark"></span>
                         </div>
                         @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "errorMsg" })
