@@ -10,7 +10,7 @@ namespace ITSupport.Services.Services
 {
     public class CommonLookupService : ICommonLookupService
     {
-        IRepository<CommonLookup> _commonLookupRepository;
+        private readonly IRepository<CommonLookup> _commonLookupRepository;
         public CommonLookupService(IRepository<CommonLookup> commonLookupRepository)
         {
             _commonLookupRepository = commonLookupRepository;
@@ -20,15 +20,6 @@ namespace ITSupport.Services.Services
         public CommonLookup GetCommonLookup(Guid Id)
         {
             var commonLookup = _commonLookupRepository.Find(Id);
-
-            //CommonLookup model = new CommonLookup();
-            //model.Id = commonLookup.Id;
-            //model.ConfigKey = commonLookup.ConfigKey;
-            //model.ConfigName = commonLookup.ConfigName;
-            //model.ConfigValue = commonLookup.ConfigValue;
-            //model.Description = commonLookup.Description;
-            //model.DisplayOrder = commonLookup.DisplayOrder;
-            //model.IsActive = commonLookup.IsActive;
             return commonLookup;
         }
 
@@ -91,19 +82,6 @@ namespace ITSupport.Services.Services
             {
                 return null;
             }
-
-
-            //var commonLookupData = _commonLookupRepository.Collection().Where(x => x.ConfigName == commonLookup.ConfigName && x.ConfigKey == commonLookup.ConfigKey && !x.IsDeleted).Any();
-            //if (!commonLookupData) {
-            //    _commonLookupRepository.Update(commonLookup);
-            //    _commonLookupRepository.Commit();
-            //    return commonLookup;
-            //}
-            //else
-            //{
-            //    return null;
-            //}
-
         }
 
         public List<CommonLookup> GetCommonLookups()

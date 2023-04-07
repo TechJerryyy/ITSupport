@@ -1,5 +1,4 @@
 ﻿@model ITSupport.Core.Models.CommonLookup
-@Styles.Render("~/Content/css")
 <div class="modal-header">
     @if (Model.IsEdit)
     {<span class="modal-title">Edit CommonLookup </span>
@@ -90,7 +89,7 @@
                             success: function () {
                             }
                         }).done(function (partialViewResult) {
-                            $("#CommonLookupTable").html(partialViewResult);
+                            $("#CommonLookupManagement").html(partialViewResult);
                             $("#CLModal").modal("hide");
                             $('.modal-backdrop').remove();
                         });
@@ -132,6 +131,5 @@
                 $("#configValueError").text("")
             }
         }
-
     }
 </script>

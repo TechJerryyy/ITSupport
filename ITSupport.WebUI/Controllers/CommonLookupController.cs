@@ -14,7 +14,7 @@ namespace ITSupport.WebUI.Controllers
     [UserAuth]
     public class CommonLookupController : Controller
     {
-        ICommonLookupService _commonLookupService;
+        private readonly ICommonLookupService _commonLookupService;
         public CommonLookupController(ICommonLookupService commonLookupService)
         {
             _commonLookupService = commonLookupService;
@@ -49,13 +49,13 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Create(CommonLookup model)
         {
                 var commonLookupData = _commonLookupService.Create(model);
+                TempData["PageSelected"] = "CommonLookupManagement";
                 if (commonLookupData != null)
                 {
                     return Content("True");
                 }
                 else
                 {
-                    TempData["PageSelected"] = "CommonLookupManagement";
                     return Content("False");
                 }           
         }
@@ -71,7 +71,6 @@ namespace ITSupport.WebUI.Controllers
                 }
                 else
                 {
-
                     return Content("False");
                 }
         }

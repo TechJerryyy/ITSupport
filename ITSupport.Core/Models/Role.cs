@@ -9,10 +9,7 @@ namespace ITSupport.Core.Models
 {
     public class Role : BaseEntity
     {
-        [Required]
         public string Name { get; set; }
-        //public string code { get; set; }
-        [Required]
         public string Code { get; set; }
 
     }

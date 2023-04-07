@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Index";
 }
-@Styles.Render("~/Content/css")
 <div id="CommonLookupManagement">
     <div class="align-center align-between pb20">
         <h2>CommonLookup Management</h2>
@@ -118,7 +117,15 @@
             url: "/CommonLookup/Delete?Id=" + Id,
             success: function () {
                 $('#ConfirmDeleteModal').modal("hide");
-                location.reload();
+                $.ajax({
+                    type: 'GET',
+                    url: "/CommonLookup/Index",
+                    success: function () {
+                    }
+                }).done(function (partialViewResult) {
+                    $("#CommonLookupTable").html(partialViewResult);
+                    $('.modal-backdrop').remove();
+                });
             }
         })
     }

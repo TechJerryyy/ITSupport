@@ -13,7 +13,7 @@ namespace ITSupport.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        private ILoginService _loginService;
+        private readonly ILoginService _loginService;
         public AccountController(ILoginService loginService)
         {
             _loginService = loginService;

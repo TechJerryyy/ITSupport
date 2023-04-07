@@ -15,7 +15,7 @@ namespace ITSupport.WebUI.Controllers
     [UserAuth]
     public class RoleController : Controller
     {
-        IRoleService _roleService;
+        private readonly IRoleService _roleService;
         public RoleController(IRoleService roleService)
         {
             _roleService = roleService;
@@ -24,7 +24,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleService.GetRoleList().ToList();
-            return View(roles.ToDataSourceResult(request));
+            return PartialView("_RoleIndexPartial", roles.ToDataSourceResult(request));
         }
         public ActionResult GetAllRolesJson([DataSourceRequest] DataSourceRequest request)
         {
@@ -64,7 +64,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Edit(Guid Id)
         {
             RoleViewModel role = _roleService.GetRole(Id);
-
+            TempData["PageSelected"] = "RoleManagement";
             return View(role);
 
         }

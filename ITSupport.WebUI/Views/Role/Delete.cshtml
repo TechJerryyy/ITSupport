@@ -29,9 +29,19 @@
                 @Html.AntiForgeryToken()
 
                 <div class="btn">
-                    <input type="submit" value="Delete" class="btnDiv" /> | @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-default" })
+                    <input type="submit" value="Delete" class="btnDiv" />
                 </div>
             }
         </div>
     </div>
 </div>
+
+<button id="backToList">Back to List</button>
+
+<script>
+    $(document).ready(function () {
+        $('#backToList').click(function () {
+            history.back();
+        });
+    });
+</script>
