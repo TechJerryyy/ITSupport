@@ -14,7 +14,7 @@ namespace ITSupport.WebUI.Controllers
     [UserAuth]
     public class CommonLookupController : Controller
     {
-        ICommonLookupService _commonLookupService;
+        private readonly ICommonLookupService _commonLookupService;
         public CommonLookupController(ICommonLookupService commonLookupService)
         {
             _commonLookupService = commonLookupService;
@@ -46,23 +46,20 @@ namespace ITSupport.WebUI.Controllers
                 commonLookup.IsEdit = true;
                 return PartialView("_CLPartial", commonLookup);
             }
-            //return View();
         }
         [HttpPost]
         public ActionResult Create(CommonLookup model)
         {
                 var commonLookupData = _commonLookupService.Create(model);
+                TempData["PageSelected"] = "CommonLookupManagement";
                 if (commonLookupData != null)
                 {
                     return Content("True");
                 }
                 else
                 {
-                    TempData["PageSelected"] = "CommonLookupManagement";
                     return Content("False");
                 }           
-
-            //return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -76,16 +73,9 @@ namespace ITSupport.WebUI.Controllers
                 }
                 else
                 {
-
                     return Content("False");
                 }
-                //return RedirectToAction("Index");
         }
-        //public ActionResult Delete(Guid Id)
-        //{
-        //    CommonLookup commonLookup = _commonLookupService.GetCommonLookup(Id);
-        //    return View(commonLookup);
-        //}
         [HttpPost]
 
         public ActionResult Delete(Guid Id)
@@ -93,7 +83,6 @@ namespace ITSupport.WebUI.Controllers
             CommonLookup commonLookup = _commonLookupService.GetCommonLookup(Id);
             TempData["PageSelected"] = "CommonLookupManagement";
             _commonLookupService.Delete(commonLookup);            
-            //return RedirectToAction("Index", "Admin");
             return PartialView("_CommonLookupPartial");
         }
     }

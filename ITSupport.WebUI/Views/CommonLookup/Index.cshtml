@@ -1,11 +1,9 @@
-﻿@*@model IEnumerable<ITSTMSystem.Core.Models.CommonLookup>*@
-@using Kendo.Mvc.UI
+﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.Models
 
 @{
     ViewBag.Title = "Index";
 }
-@Styles.Render("~/Content/css")
 <div id="CommonLookupManagement">
     <div class="align-center align-between pb20">
         <h2>CommonLookup Management</h2>
@@ -21,7 +19,6 @@
     columns.Bound(c =>c.ConfigKey).Width(70);
     columns.Bound(c=>c.ConfigValue).Width(70);
     columns.Bound(c=>c.DisplayOrder).Width(70);
-    //columns.Bound(c=>c.Description).Width(70);
     columns.Bound(c => c.IsActive).Width(70);
 
     columns.Command(command => { command.Custom("Edit").Click("Create").IconClass("k-i-edit").Text(" "); command.Custom("Delete").Click("ConfirmDelete").IconClass("k-i-delete").Text(" "); }).Width(70);
@@ -35,7 +32,6 @@
     s.Field(o => o.ConfigKey, "contains");
     s.Field(o => o.ConfigValue, "contains");
     s.Field(o => o.DisplayOrder, "eq");
-    //s.Field(o => o.Description, "contains");
 })
 .Scrollable()
 .Filterable()
@@ -46,9 +42,6 @@
 .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetCommonLookups", "CommonLookup"))
 .PageSize(5))
 )
-        @*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-            <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-            <script src="~/Scripts/bootstrap.min.js"></script>*@
     </div>
 
     <div class="modal fade" id="CLModal">
@@ -128,9 +121,16 @@
             url: "/CommonLookup/Delete?Id=" + Id,
             success: function () {
                 $('#ConfirmDeleteModal').modal("hide");
-                location.reload();
+                $.ajax({
+                    type: 'GET',
+                    url: "/CommonLookup/Index",
+                    success: function () {
+                    }
+                }).done(function (partialViewResult) {
+                    $("#CommonLookupTable").html(partialViewResult);
+                    $('.modal-backdrop').remove();
+                });
             }
         })
-
     }
 </script>

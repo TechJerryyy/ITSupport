@@ -12,8 +12,8 @@ namespace ITSupport.Services.Services
 {
     public class UserService : IUserService
     {
-        IUserRepository _userRepository;
-        IRepository<UserRole> _userRoleRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IRepository<UserRole> _userRoleRepository;
 
         public UserService(IUserRepository userRepository, IRepository<UserRole> userRoleRepository)
         {

@@ -56,6 +56,10 @@
     <Compile Include="Migrations\202303311133173_Intial_Tables_Added_and_...changes.designer.cs">
       <DependentUpon>202303311133173_Intial_Tables_Added_and_...changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304070515323_Update_dataAnnotations.cs" />
+    <Compile Include="Migrations\202304070515323_Update_dataAnnotations.designer.cs">
+      <DependentUpon>202304070515323_Update_dataAnnotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
@@ -76,6 +80,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202303311133173_Intial_Tables_Added_and_...changes.resx">
       <DependentUpon>202303311133173_Intial_Tables_Added_and_...changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304070515323_Update_dataAnnotations.resx">
+      <DependentUpon>202304070515323_Update_dataAnnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

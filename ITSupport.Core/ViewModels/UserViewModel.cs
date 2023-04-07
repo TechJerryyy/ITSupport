@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITSupport.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ITSupport.Core.ViewModels
 {
-    public class UserViewModel
+    public class UserViewModel 
     {
         [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
@@ -18,9 +19,9 @@ namespace ITSupport.Core.ViewModels
         [EmailAddress(ErrorMessage = "Please enter a valid email")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
-        [DataType(DataType.Password)]
+       // [DataType(DataType.Password)]
         [Display(Name = "Password")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$", ErrorMessage = "Password Must contain Minimum eight and maximum 15 characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$", ErrorMessage = "Password Must contain Minimum 8 and maximum 15 characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Please Select Gender")]
         public string Gender { get; set; }

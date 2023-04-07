@@ -32,9 +32,19 @@
             <div class="inputBox">
                 <button type="submit" class="btnDiv">Create</button>
             </div>
-            <div class="">
-                @Html.ActionLink("Back to List", "Index", "Admin")
-            </div>
+            @*<div id="back-btn">
+                    @Html.ActionLink("Back to List", "Index", "Admin")
+                </div>*@
         </div>
     </div>
- }
+}
+
+<button id="backToList">Back to List</button>
+
+<script>
+    $(document).ready(function () {
+        $('#backToList').click(function () {
+            history.back();
+        });
+    });
+</script>

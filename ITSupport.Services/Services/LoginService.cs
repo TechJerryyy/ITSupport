@@ -13,7 +13,7 @@ namespace ITSupport.Services.Services
     public class LoginService : ILoginService
     {
 
-        ILoginRepository _loginRepository;
+        private readonly ILoginRepository _loginRepository;
 
         public LoginService(ILoginRepository loginRepository)
         {

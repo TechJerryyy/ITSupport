@@ -15,7 +15,7 @@ namespace ITSupport.SQL.Repository
         void Insert(Role role);
         Role Find(Guid Id);
         void Update(Role role);
-        void SoftDelete(Guid Id);
+        void Delete(Guid Id);
 
 
     }
@@ -51,13 +51,14 @@ namespace ITSupport.SQL.Repository
             dbSet.Attach(role);
             context.Entry(role).State = EntityState.Modified;
         }
-        public void SoftDelete(Guid Id)
+        public void Delete(Guid Id)
         {
             var role = Find(Id);
             if (context.Entry(role).State == EntityState.Detached)
-                //dbSet.Attach(role);
-
-                dbSet.Remove(role);
+            {
+                dbSet.Attach(role);
+            }
+            dbSet.Remove(role);
         }
 
     }

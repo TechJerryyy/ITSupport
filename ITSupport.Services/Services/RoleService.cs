@@ -11,7 +11,7 @@ namespace ITSupport.Services.Services
 {
     public class RoleService : IRoleService
     {
-        IRoleRepository _roleRepository;
+        private readonly IRoleRepository _roleRepository;
         public RoleService(IRoleRepository roleRepository)
         {
             _roleRepository = roleRepository;
