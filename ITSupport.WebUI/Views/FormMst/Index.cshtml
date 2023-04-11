@@ -1,0 +1,68 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupport.Core.ViewModels
+@Styles.Render("~/Content/css")
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="section" style="margin-top:30px">
+        <div class="container">
+            <div class="topTitleHead pb20">
+
+            </div>
+            <div id="FormMst">
+                <div class="align-center align-between pb20">
+                    <h2>Forms Management</h2>
+                    <div class="btnDiv">
+                        @Html.ActionLink("+ Add New Form", "Create")
+                    </div>
+                </div>
+
+                <div class="tableDiv">
+                    @(Html.Kendo().Grid<FormMstViewModel>().Name("FormMstGrid").NoRecords("No records found!").Columns(columns=>
+{
+    columns.Bound(c=>c.Name).Width(70);
+    columns.Bound(c =>c.NavigateURL).Width(70);
+    columns.Bound(c=>c.ParentFormName).Width(70);
+    columns.Bound(c=>c.FormAccessCode).Width(70);
+    columns.Bound(c=>c.DisplayIndex).Width(70);
+    columns.Bound(c => c.IsActive).Width(70);
+    columns.Template(t => { })
+            .ClientTemplate(
+                "<a href='" + Url.Action("Edit", "FormMst") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-pencil'/></a>").Width(30);
+    columns.Template(t => { }).ClientTemplate(
+                "<a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-trash'/></a>").Width(30);
+})
+.HtmlAttributes(new { style = "heigh: 550px" })
+.Groupable()
+.Search(s =>
+{
+    s.Field(o => o.Name, "contains");
+    s.Field(o => o.NavigateURL, "contains");
+    s.Field(o => o.ParentFormName, "contains");
+    s.Field(o => o.FormAccessCode, "contains");
+    s.Field(o => o.DisplayIndex, "Number");
+})
+.Scrollable()
+.Filterable()
+.Sortable()
+.ToolBar(t => t.Search())
+.Pageable()
+.Resizable(resize => resize.Columns(true))
+.DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllForms", "FormMst"))
+.PageSize(5))
+)
+                </div>
+            </div>
+        </div>
+        <!-- END Section -->
+    </div>
+</body>
+</html>

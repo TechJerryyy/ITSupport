@@ -60,8 +60,21 @@
     <Compile Include="Migrations\202304070515323_Update_dataAnnotations.designer.cs">
       <DependentUpon>202304070515323_Update_dataAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304071325128_Add-Table-initial-FormMst.cs" />
+    <Compile Include="Migrations\202304071325128_Add-Table-initial-FormMst.designer.cs">
+      <DependentUpon>202304071325128_Add-Table-initial-FormMst.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304071329274_Add-Table-initial-FormMst-to-datacontext.cs" />
+    <Compile Include="Migrations\202304071329274_Add-Table-initial-FormMst-to-datacontext.designer.cs">
+      <DependentUpon>202304071329274_Add-Table-initial-FormMst-to-datacontext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304110419131_add-changes.cs" />
+    <Compile Include="Migrations\202304110419131_add-changes.designer.cs">
+      <DependentUpon>202304110419131_add-changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\FormMstRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\SQLRepository.cs" />
@@ -83,6 +96,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304070515323_Update_dataAnnotations.resx">
       <DependentUpon>202304070515323_Update_dataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304071325128_Add-Table-initial-FormMst.resx">
+      <DependentUpon>202304071325128_Add-Table-initial-FormMst.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304071329274_Add-Table-initial-FormMst-to-datacontext.resx">
+      <DependentUpon>202304071329274_Add-Table-initial-FormMst-to-datacontext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304110419131_add-changes.resx">
+      <DependentUpon>202304110419131_add-changes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -22,13 +22,13 @@ namespace ITSupport.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
-            List<CommonLookup> commonLookups = _commonLookupService.GetCommonLookups().ToList();
-            return PartialView("_CommonLookupPartial",commonLookups.ToDataSourceResult(request));
+            List<CommonLookup> CommonLookups = _commonLookupService.GetCommonLookups().ToList();
+            return PartialView("_CommonLookupPartial",CommonLookups.ToDataSourceResult(request));
         }
         public ActionResult GetCommonLookups([DataSourceRequest] DataSourceRequest request)
         {
-            List<CommonLookup> commonLookups = _commonLookupService.GetCommonLookups().Select(x => new CommonLookup() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue = x.ConfigValue, Description = x.Description, DisplayOrder = x.DisplayOrder, IsActive = x.IsActive, IsEdit = x.IsEdit }).ToList();
-            return Json(commonLookups.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+            List<CommonLookup> CommonLookups = _commonLookupService.GetCommonLookups().Select(x => new CommonLookup() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue = x.ConfigValue, Description = x.Description, DisplayOrder = x.DisplayOrder, IsActive = x.IsActive, IsEdit = x.IsEdit }).ToList();
+            return Json(CommonLookups.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Create(Guid? Id = null)
         {

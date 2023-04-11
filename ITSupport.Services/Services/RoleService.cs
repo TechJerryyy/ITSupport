@@ -35,9 +35,11 @@ namespace ITSupport.Services.Services
             {
                 return "Role already exists.";
             }
-            Role role = new Role();
-            role.Code = model.Code.ToUpper().Trim();
-            role.Name = model.Name;
+            Role role = new Role
+            {
+                Code = model.Code.ToUpper().Trim(),
+                Name = model.Name
+            };
 
 
             _roleRepository.Insert(role);
@@ -72,10 +74,12 @@ namespace ITSupport.Services.Services
         {
             var role = _roleRepository.Find(Id);
 
-            RoleViewModel model = new RoleViewModel();
-            model.Id = role.Id;
-            model.Name = role.Name;
-            model.Code = role.Code.ToUpper().Trim();
+            RoleViewModel model = new RoleViewModel
+            {
+                Id = role.Id,
+                Name = role.Name,
+                Code = role.Code.ToUpper().Trim()
+            };
             return model;
         }
         public void DeleteRole(RoleViewModel model)

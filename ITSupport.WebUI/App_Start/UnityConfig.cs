@@ -14,7 +14,7 @@ namespace ITSupport.WebUI
     public static class UnityConfig
     {
         #region Unity Container
-        private static Lazy<IUnityContainer> container =
+        private readonly static Lazy<IUnityContainer> container =
           new Lazy<IUnityContainer>(() =>
           {
               var container = new UnityContainer();
@@ -56,11 +56,15 @@ namespace ITSupport.WebUI
             container.RegisterType<IUserService, UserService>();
 
             container.RegisterType<ICommonLookupService, CommonLookupService>();
+            
+            container.RegisterType<IFormMstRepository, FormMstRepository>();
+            container.RegisterType<IFormMstService, FormMstService>();
 
             container.RegisterType<IRepository<Role>, SQLRepository<Role>>();
             container.RegisterType<IRepository<User>, SQLRepository<User>>();
             container.RegisterType<IRepository<UserRole>, SQLRepository<UserRole>>();
             container.RegisterType<IRepository<CommonLookup>, SQLRepository<CommonLookup>>();
+            container.RegisterType<IRepository<FormMst>, SQLRepository<FormMst>>();
         }
     }
 }

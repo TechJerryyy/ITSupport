@@ -54,8 +54,8 @@ namespace ITSupport.Services.Services
                 return "Email already exists.";
             }
             User user = new User();
-            string salt = "";
-            string password = HashPasword(model.Password, out salt);
+            //string salt = "";
+            string password = HashPasword(model.Password, out string salt);
             user.Name = model.Name;
             user.UserName = model.UserName;
             user.Email = model.Email;
@@ -65,11 +65,13 @@ namespace ITSupport.Services.Services
             user.Gender = model.Gender;
             user.MobileNumber = model.MobileNumber;
 
-            _userRepository.Instert(user);
+            _userRepository.Insert(user);
             _userRepository.Commit();
-            UserRole userRole = new UserRole();
-            userRole.RoleId = model.RoleId;
-            userRole.UserId = user.Id;
+            UserRole userRole = new UserRole
+            {
+                RoleId = model.RoleId,
+                UserId = user.Id
+            };
             _userRoleRepository.Insert(userRole);
             _userRoleRepository.Commit();
 

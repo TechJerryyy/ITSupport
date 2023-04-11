@@ -20,7 +20,7 @@
             <!----- Tabs ---->
             <div class="tab">
                 <ul class="align-center">
-                    <li> <a id="UsereManagementTab" class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
+                    <li> <a id="UserManagementTab" class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
                     <li> <a id="RoleManagementTab" class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
                     <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')">Settings </a> </li>
                     <li> <a id="ActivityManagementTab" class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="tableDiv" id="Users">
-                        @Html.Partial("~/Views/User/_UserIndexPartial.cshtml")
+                       
                     </div>
                 </div>
                 <div id="RoleManagement" class="tabcontent">
@@ -47,13 +47,12 @@
                         </div>
                     </div>
                     <div class="tablediv" id="Roles">
-                        @*@Html.Partial("~/Views/Role/_RoleIndexPartial.cshtml")*@
+                  
                     </div>
                 </div>
                 <div id="CommonLookupManagement" class="tabcontent">
                    
-                        @*@Html.Partial("~/Views/CommonLookup/_CommonLookupPartial.cshtml")*@
-                  
+                      
                 </div>
             </div>
         </div>
@@ -71,7 +70,7 @@
         }
     });
     $(document).ready(function () {
-       ('#Users').load('@Url.Action("Index" , "User")');
+       $('#Users').load('@Url.Action("Index" , "User")');
     });
     function openSystems(evt, SystemsName) {
         var i, tabcontent, tablinks;

@@ -21,7 +21,6 @@ namespace ITSupport.WebUI.Controllers
             _userService = userService;
             _roleService = roleService;
         }
-        [AllowAnonymous]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<UserViewModel> user = _userService.GetUsers().ToList();

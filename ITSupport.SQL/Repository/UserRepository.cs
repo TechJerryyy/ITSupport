@@ -38,7 +38,7 @@ namespace ITSupport.SQL.Repository
             return dbSet.Find(Id);
         }
 
-        public void Instert(User user)
+        public void Insert(User user)
         {
             dbSet.Add(user);
 
@@ -115,7 +115,7 @@ namespace ITSupport.SQL.Repository
 public interface IUserRepository
 {
     IQueryable<User> Collection();
-    void Instert(User user);
+    void Insert(User user);
     void Commit();
     User Find(Guid Id);
     void Update(User user);

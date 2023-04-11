@@ -14,7 +14,7 @@ namespace ITSupport.SQL.Repository
     {
 
         internal DataContext context;
-        internal DbSet dbSet;
+        
 
         public LoginRepository(DataContext context)
         {

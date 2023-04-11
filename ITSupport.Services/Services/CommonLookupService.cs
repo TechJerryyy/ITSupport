@@ -29,13 +29,15 @@ namespace ITSupport.Services.Services
             if (commonLookupData == null)
             {
 
-                CommonLookup commonLookup = new CommonLookup();
-                commonLookup.ConfigKey = model.ConfigKey;
-                commonLookup.ConfigName = model.ConfigName;
-                commonLookup.ConfigValue = model.ConfigValue;
-                commonLookup.Description = model.Description;
-                commonLookup.DisplayOrder = model.DisplayOrder;
-                commonLookup.IsActive = model.IsActive;
+                CommonLookup commonLookup = new CommonLookup
+                {
+                    ConfigKey = model.ConfigKey,
+                    ConfigName = model.ConfigName,
+                    ConfigValue = model.ConfigValue,
+                    Description = model.Description,
+                    DisplayOrder = model.DisplayOrder,
+                    IsActive = model.IsActive
+                };
 
 
                 _commonLookupRepository.Insert(commonLookup);

@@ -413,6 +413,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommonLookupController.cs" />
+    <Compile Include="Controllers\FormMstController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -5105,6 +5106,10 @@
     <Content Include="Views\Role\_RoleIndexPartial.cshtml" />
     <Content Include="Views\User\_UserIndexPartial.cshtml" />
     <Content Include="Views\CommonLookup\_CommonLookupPartial.cshtml" />
+    <Content Include="Views\FormMst\Index.cshtml" />
+    <Content Include="Views\FormMst\Create.cshtml" />
+    <Content Include="Views\FormMst\Edit.cshtml" />
+    <Content Include="Views\FormMst\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
