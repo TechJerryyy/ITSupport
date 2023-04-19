@@ -1,4 +1,5 @@
 ﻿using ITSupport.Core.Models;
+using ITSupport.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,18 +17,17 @@ namespace ITSupport.SQL.Repository
         Role Find(Guid Id);
         void Update(Role role);
         void Delete(Guid Id);
-
-
     }
     public class RoleRepository : IRoleRepository
     {
         internal DataContext context;
         internal DbSet<Role> dbSet;
+       
 
         public RoleRepository(DataContext context)
         {
             this.context = context;
-            this.dbSet = context.Set<Role>();
+            dbSet = context.Set<Role>();
         }
         public IQueryable<Role> Collection()
         {
@@ -43,8 +43,7 @@ namespace ITSupport.SQL.Repository
         }
         public Role Find(Guid Id)
         {
-            return dbSet.Find(Id)
-;
+            return dbSet.Find(Id);
         }
         public void Update(Role role)
         {
@@ -59,7 +58,6 @@ namespace ITSupport.SQL.Repository
                 dbSet.Attach(role);
             }
             dbSet.Remove(role);
-        }
-
+        }   
     }
 }

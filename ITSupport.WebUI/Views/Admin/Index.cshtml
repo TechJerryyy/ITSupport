@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Systems </title>
-    @*<link rel="stylesheet" href="~/Style/login.css">*@
 </head>
 <body>
     <div class="section">
@@ -63,15 +62,10 @@
 </html>
 
 <script>
-    $(document).ready(function () {
-        var data = '@TempData["PageSelected"]';
-        if (data != '') {
-            openSystems(null, data);
-        }
-    });
-    $(document).ready(function () {
-       $('#Users').load('@Url.Action("Index" , "User")');
-    });
+    //$(document).ready(function () {
+    //    debugger;
+    //    window.history.pushState("/Index", "/Index/{id}");
+    //});
     function openSystems(evt, SystemsName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -82,8 +76,6 @@
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-        //document.getElementById(SystemsName).style.display = "block";
-        //evt.currentTarget.className += " active";
         document.getElementById(SystemsName).style.display = "block";
         if (evt != null) {
             evt.currentTarget.className += " active";
@@ -101,8 +93,16 @@
         else if (SystemsName == "CommonLookupManagement") {
             $('#CommonLookupManagement').load('@Url.Action("Index" , "CommonLookup")')
         }
-
     }
+    $(document).ready(function () {
+        var data = '@TempData["PageSelected"]';
+        if (data != '') {
+            openSystems(null, data);
+        }
+    });
+    $(document).ready(function () {
+       $('#Users').load('@Url.Action("Index" , "User")');
+    });
 </script>
 <script>
     var isSaveClicked = false;
@@ -133,9 +133,6 @@
         })
 
     }
-
-</script>
-<script>
     function ConfirmDelete(e) {
         var d = this.dataItem($(e.currentTarget).closest("tr"));
         Id = d.Id;

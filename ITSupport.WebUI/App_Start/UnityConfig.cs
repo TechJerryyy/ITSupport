@@ -52,6 +52,9 @@ namespace ITSupport.WebUI
             container.RegisterType<IRoleRepository, RoleRepository>();
             container.RegisterType<IRoleService, RoleService>();
 
+            container.RegisterType<IPermissionRepository, PermissionRepository>();
+            container.RegisterType<IPermissionService, PermissionService>();
+
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IUserService, UserService>();
 

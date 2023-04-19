@@ -1,6 +1,5 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.ViewModels
-@Styles.Render("~/Content/css")
 @(Html.Kendo().Grid<UserViewModel>().Name("UserGrid").NoRecords("No records found!").Columns(columns =>
 {
     columns.Bound(c => c.Name).Width(70);
@@ -9,11 +8,10 @@
     columns.Bound(c => c.MobileNumber).Width(70);
     columns.Bound(c => c.Gender).Width(70);
     columns.Bound(c => c.RoleName).Width(70);
-    columns.Template(t => { })
+    columns.Template(c => { }).Title("Action")
             .ClientTemplate(
-                "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-pencil'/></a>").Width(30);
-    columns.Template(t => { }).ClientTemplate(
-                "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-trash'/></a>").Width(30);
+               "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='iconDiv'><i class='editIcon'></i></a>" + "  " +
+               "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='iconDiv'><i class='deleteIcon'></i></a>").Width(40);
 })
     .HtmlAttributes(new { style = "heigh: 550px" })
     .Groupable()

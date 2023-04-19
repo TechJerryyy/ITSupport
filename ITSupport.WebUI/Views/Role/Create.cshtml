@@ -29,22 +29,7 @@
                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "errorMsg" })
                 </div>
             </div>
-            <div class="inputBox">
-                <button type="submit" class="btnDiv">Create</button>
-            </div>
-            @*<div id="back-btn">
-                    @Html.ActionLink("Back to List", "Index", "Admin")
-                </div>*@
+            <a href="javascript:window.history.go(-1);">Back to List</a>
         </div>
     </div>
 }
-
-<button id="backToList">Back to List</button>
-
-<script>
-    $(document).ready(function () {
-        $('#backToList').click(function () {
-            history.back();
-        });
-    });
-</script>

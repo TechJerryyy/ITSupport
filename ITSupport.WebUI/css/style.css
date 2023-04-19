@@ -154,3 +154,34 @@ table tbody tr td { padding: 10px; font-weight: 400; font-size: 16px; line-heigh
 .tab ul li a.active, .tab ul li:hover a { color: #019FE2; }
 .tabcontent { display: none;}
 /************** END Tabs **************/
+
+
+.iconDiv {
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    margin: 0 3px;
+}
+
+
+    .iconDiv i {
+        height: 20px;
+        width: 20px;
+        display: block;
+    }
+
+.editIcon {
+    background: url(../Images/edit.svg);
+}
+
+.deleteIcon {
+    background: url(../Images/trash.svg);
+}
+
+.permissionsIcon {
+    background: url(../Images/key.svg);
+}
+
+.viewIcon {
+    background: url(../Images/eye.svg);
+}

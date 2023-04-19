@@ -16,9 +16,11 @@ namespace ITSupport.WebUI.Controllers
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;
-        public RoleController(IRoleService roleService)
+        private readonly IPermissionService _permissionService;
+        public RoleController(IRoleService roleService, IPermissionService permissionService)
         {
             _roleService = roleService;
+            _permissionService = permissionService;
         }
         [AllowAnonymous]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
@@ -34,6 +36,7 @@ namespace ITSupport.WebUI.Controllers
 
         public ActionResult Create()
         {
+            TempData["PageSelected"] = "RoleManagement";
             return View();
         }
 
@@ -43,7 +46,7 @@ namespace ITSupport.WebUI.Controllers
             if (!ModelState.IsValid)
             {
 
-                return View(model);
+                return View();
             }
             else
             {
@@ -64,7 +67,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Edit(Guid Id)
         {
             RoleViewModel role = _roleService.GetRole(Id);
-            TempData["PageSelected"] = "RoleManagement";
+            //TempData["PageSelected"] = "RoleManagement";
             return View(role);
 
         }
@@ -96,7 +99,31 @@ namespace ITSupport.WebUI.Controllers
             TempData["PageSelected"] = "RoleManagement";
             return RedirectToAction("Index", "Admin");
         }
+        public ActionResult ManagePermission(Guid Id)
+        {
+            List<PermissionViewModel> permision = _permissionService.GetPermission(Id).ToList();
+            ViewBag.RoleId = Id;
+            return View(permision);
+        }
 
-
+        public ActionResult GetAllPermissionJson([DataSourceRequest] DataSourceRequest request, Guid Id)
+        {
+            List<PermissionViewModel> permissionViewModels = _permissionService.GetPermission(Id).ToList();
+            return Json(permissionViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult UpdatePermission(List<Permission> model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                _permissionService.UpdatePermission(model);
+                return RedirectToAction("Index", "Admin");
+            }
+        }
     }
 }

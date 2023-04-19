@@ -4,19 +4,16 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Systems </title>
+    <title> ITSupport @ViewBag.title </title>
     <link rel="icon" type="image/x-icon" href="~/Images/aakash-informatics-squareLogo-1615467716612.png">
     <link rel="stylesheet" href="~/css/style.css">
     @Scripts.Render("~/bundles/jquery")
-    @*<script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
-
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Kendo")
 
-    @RenderSection("scripts", required: false)
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    @RenderSection("scripts", required: false)
 </head>
 <body>
     <div class="mainDiv">
@@ -25,13 +22,13 @@
             <div class="container">
                 <div class="align-center align-between">
                     <div class="align-center">
-                        <div class="logoDiv"> <a href="#"> <img src="~/Images/logo.svg" alt="CRB Logo"> </a> </div>
+                        <div class="logoDiv"> <a href="#"> <img src="~/Images/itstm.svg" alt="ITSTM Logo" style="resize:block"> </a> </div>
 
                         <div class="menuDiv">
                             <ul class="align-center">
                                 <li> @Html.ActionLink("Home", "Index", "Home") </li>
                                 <li> <a href="#"> Ticket </a> </li>
-                                <li>@Html.ActionLink("Systems", "Index", "Admin")</li>
+                                <li> <a href="@Url.Action("Index" , "Admin")"> Systems  </a> </li>
                                 <li>@Html.ActionLink("FormMst", "Index", "FormMst")</li>
                             </ul>
                         </div>
@@ -71,9 +68,9 @@
 </body>
 </html>
 
-
-
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.2.510/styles/kendo.common.min.css" />
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.2.0/default/default-main.css" />
-@Scripts.Render("~/Content/css")
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+@Styles.Render("~/Content/bootstrap.css")
 @Scripts.Render("~/bundles/bootstrap")

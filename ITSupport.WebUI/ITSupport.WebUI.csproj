@@ -439,6 +439,7 @@
     <Content Include="Images\down-arrow.svg" />
     <Content Include="Images\edit.svg" />
     <Content Include="Images\eye.svg" />
+    <Content Include="Images\itstm.svg" />
     <Content Include="Images\key.svg" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\login-bg.jpg" />
@@ -5110,6 +5111,7 @@
     <Content Include="Views\FormMst\Create.cshtml" />
     <Content Include="Views\FormMst\Edit.cshtml" />
     <Content Include="Views\FormMst\Delete.cshtml" />
+    <Content Include="Views\Role\ManagePermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

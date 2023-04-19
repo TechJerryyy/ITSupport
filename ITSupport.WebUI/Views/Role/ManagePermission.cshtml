@@ -1,0 +1,150 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupport.Core.ViewModels
+@{
+    ViewBag.Title = "ManagePermission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="section" style="margin-top:30px">
+        <div class="container">
+            <div class="topTitleHead pb20">
+                <h2>ManagePermission </h2>
+            </div>
+            @(Html.Kendo().Grid<PermissionViewModel>().Name("PermissionGrid").NoRecords("No records found!").Columns(columns=>
+        {
+            columns.Template(c => { })
+            .Title("All <input type='checkbox' onclick='selectAll(this)' id='selectall' name='allView'/>")
+            .ClientTemplate("<input type='checkbox' class='allcheck' #=View == true && Insert == true && Update == true && Delete == true ? checked = 'checked' : ''# onclick='selectRow(this)' id='#=FormId#' name='row'/>")
+                  .Width(50);
+            columns.Bound(c=>c.FormName).Width(100);
+            columns.Bound(c=>c.View)
+            .Title("View")
+            .ClientTemplate("<input type='checkbox' class='allcheck' onclick='CheckValue(this)' #=View == true ? checked = 'checked' : ''# id='view_#=FormId#' name='View'/>")
+                  .Width(50);
+            columns.Bound(c=>c.Insert).Title("Insert")
+            .ClientTemplate("<input type='checkbox' class='allcheck' onclick='CheckValue(this)' #=Insert == true ? checked = 'checked' : ''# id='insert_#=FormId#' name='Insert'/>")
+                  .Width(50);
+            columns.Bound(c=>c.Update).Title("Update")
+            .ClientTemplate("<input type='checkbox' class='allcheck' onclick='CheckValue(this)' #=Update == true ? checked = 'checked' : ''# id='update_#=FormId#' name='Update'/>")
+                  .Width(50);
+            columns.Bound(c=>c.Delete).Title("Delete")
+            .ClientTemplate("<input type='checkbox' class='allcheck' onclick='CheckValue(this)' #=Delete == true ? checked = 'checked' : ''# id='delete_#=FormId#' name='Delete'/>")
+                  .Width(50);
+
+
+        })
+    .HtmlAttributes(new { style = "heigh: 550px" })
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Groupable()
+    .Search(s =>
+    {
+        s.Field(o => o.FormName, "contains");
+    })
+    .Filterable()
+    .Sortable()
+    .ToolBar(t => t.Search())
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.RoleId))
+    .Read(read => read.Action("GetAllPermissionJson", "Role", new { Id = ViewBag.RoleId})))
+)
+        </div>
+
+    </div>
+    <div class="align-center align-between pb20">
+        <button onclick="savepermission()" id="Savebtn" class="btnDiv">Save</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function savepermission() {
+        debugger;
+        var grid = $("#PermissionGrid").data("kendoGrid");
+        var ds = grid.dataSource.view();
+        if (ds.length > 0) {
+            const data = [];
+            for (var i = 0; i < ds.length; i++) {
+
+                FormId = ds[i].FormId;
+                RoleId = ds[i].RoleId;
+                Id = ds[i].Id;
+                FormName = ds[i].FormName;
+                View = document.getElementById("view_" + FormId).checked;
+                Insert = document.getElementById("insert_" + FormId).checked;
+                Update = document.getElementById("update_" + FormId).checked;
+                Delete = document.getElementById("delete_" + FormId).checked;
+
+                var jsonData = { FormId : FormId, FormName: FormName, RoleId: RoleId, View : View, Insert: Insert, Update: Update, Delete: Delete };
+                data.push(jsonData);
+
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/Role/UpdatePermission',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType : 'json',
+                success: function (data) {
+                }
+            });
+
+        }
+    }
+    $('#Savebtn').click(function () {
+        toastr.success('Saved successfully.');
+        
+         toastr.options.timeOut = 30000;
+         document.location ='@Url.Action("Index", "Admin")';
+    });
+    function selectRow(e) {
+        var Id = e.id;
+        $(".allcheck").change(function () {            if ($(".allcheck").length == $(".allcheck:checked").length)                $("#selectall").prop('checked', true);            else                $("#selectall").prop('checked', false);        });
+        if (e.checked) {
+            document.getElementById('view_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('view_' + Id).checked = false;
+        }
+        if (e.checked) {
+            document.getElementById('insert_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('insert_' + Id).checked = false;
+        }
+        if (e.checked) {
+            document.getElementById('update_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('update_' + Id).checked = false;
+        }
+        if (e.checked) {
+            document.getElementById('delete_' + Id).checked = true;
+        }
+        else {
+            document.getElementById('delete_' + Id).checked = false;
+        }
+    }
+    function CheckValue(e) {
+        var Id = e.id.split("_")[1];
+        if ($('#insert_' + Id).prop('checked') == true && $('#update_' + Id).prop('checked') == true && $('#delete_' + Id).prop('checked') == true && $('#view_' + Id).prop('checked') == true) {
+            $('#' + Id).prop('checked', true);
+        }
+        else {
+            $('#' + Id).prop('checked', false);
+        }
+    }
+    function selectAll(e) {
+        if (e.checked == true) {
+            $('.allcheck').prop('checked', true);
+        }
+        else {
+            $('.allcheck').prop('checked', false);
+        }
+    }
+</script>
