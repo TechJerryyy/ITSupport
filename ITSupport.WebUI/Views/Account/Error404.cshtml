@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.title = "Error";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error404</title>
+    <link href="~/css/error.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>404 Error Page</h1>
+    <section class="error-container">
+        <span><span>4</span></span>
+        <span>0</span>
+        <span><span>4</span></span>
+    </section>
+    <div class="link-container">
+        <a target="_blank" href="@Url.Action("Index", "Home")" class="more-link" style="font:bold">Go Home</a>
+    </div>
+</body>
+</html>

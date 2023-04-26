@@ -1,6 +1,6 @@
 ﻿using ITSupport.Core.Contract;
 using ITSupport.Core.Models;
-using ITSupport.WebUI.Models;
+using ITSupport.WebUI.ActionFilters;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;

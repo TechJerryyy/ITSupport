@@ -20,10 +20,13 @@
             <div id="FormMst">
                 <div class="align-center align-between pb20">
                     <h2>Forms Management</h2>
-                    <div class="btnDiv">
-                        @Html.ActionLink("+ Add New Form", "Create")
+                    @if (ITSupport.WebUI.ActionFilters.CheckRights.Insert == true)
+                    {
+                        <div class="btnDiv">
+                            @Html.ActionLink("+ Add New Form", "Create")                       
+                        </div>
+                    }
                     </div>
-                </div>
 
                 <div class="tableDiv">
                     @(Html.Kendo().Grid<FormMstViewModel>().Name("FormMstGrid").NoRecords("No records found!").Columns(columns=>

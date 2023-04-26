@@ -14,7 +14,7 @@
     <div class="section" style="margin-top:30px">
         <div class="container">
             <div class="topTitleHead pb20">
-                <h2>ManagePermission </h2>
+                <h2>ManagePermission</h2>
             </div>
             @(Html.Kendo().Grid<PermissionViewModel>().Name("PermissionGrid").NoRecords("No records found!").Columns(columns=>
         {
@@ -58,6 +58,7 @@
     <div class="align-center align-between pb20">
         <button onclick="savepermission()" id="Savebtn" class="btnDiv">Save</button>
     </div>
+    <a href="javascript:history.go(-1)">Back To List</a>
 </body>
 
 </html>

@@ -14,6 +14,7 @@ namespace ITSupport.SQL.Repository
         IQueryable<Permission> Collection();
         void Commit();
         Permission Find(Guid RoleId);
+        void Update(Permission permission);
         void InsertRange(List<Permission> model);
         void Delete(Guid RoleId);
         List<PermissionViewModel> GetPermission(Guid RoleId);
@@ -40,6 +41,12 @@ namespace ITSupport.SQL.Repository
         {
             return dbSet.Find(RoleId);
         }
+        public void Update(Permission permission)
+        {
+            dbSet.Attach(permission);
+            context.Entry(permission).State = EntityState.Modified;
+        }
+
         public void Delete(Guid RoleId)
         {
             var per = Find(RoleId);
@@ -60,14 +67,17 @@ namespace ITSupport.SQL.Repository
         public List<PermissionViewModel> GetPermission(Guid RoleId)
         {
                 var allPermissions = (from f in context.Forms
-                                      join p in context.Permissions.Where(x => x.RoleId == RoleId) on
+                                      join p in context.Permissions.Where(x => x.RoleId == RoleId && !x.IsDeleted) on
                                       f.Id equals p.FormId into fp
                                       from fPer in fp.DefaultIfEmpty()
                                       where !f.IsDeleted
+                                      orderby f.DisplayIndex
                                       select new PermissionViewModel
                                       {
                                           FormId = f.Id,
                                           FormName = f.Name,
+                                          NavigateURL = f.NavigateURL,
+                                          ParentFormId= f.ParentFormID,
                                           RoleId = RoleId,
                                           View = fPer != null ? fPer.View : false,
                                           Insert = fPer != null ? fPer.Insert : false,

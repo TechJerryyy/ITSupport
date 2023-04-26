@@ -24,5 +24,8 @@ namespace ITSupport.Core.ViewModels
         public string FormName { get; set; }
         [Required]
         public Guid RoleId { get; set; }
+        [Required]
+        public string NavigateURL { get; set; }
+        public Guid? ParentFormId { get; set; }
     }
 }

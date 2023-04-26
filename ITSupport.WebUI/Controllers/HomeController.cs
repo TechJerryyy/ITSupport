@@ -1,4 +1,4 @@
-﻿using ITSupport.WebUI.Models;
+﻿using ITSupport.WebUI.ActionFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +10,7 @@ namespace ITSupport.WebUI.Controllers
     [UserAuth]
     public class HomeController : Controller
     {
+        [PermissionActionFilter("HM", CheckRights.PermissionOrder.IsView)]
         public ActionResult Index()
         {
             return View();

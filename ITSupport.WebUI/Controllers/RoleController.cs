@@ -1,7 +1,7 @@
 ﻿using ITSupport.Core.Models;
 using ITSupport.Core.ViewModels;
 using ITSupport.Services.Services;
-using ITSupport.WebUI.Models;
+using ITSupport.WebUI.ActionFilters;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -22,7 +22,6 @@ namespace ITSupport.WebUI.Controllers
             _roleService = roleService;
             _permissionService = permissionService;
         }
-        [AllowAnonymous]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleService.GetRoleList().ToList();
@@ -67,7 +66,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Edit(Guid Id)
         {
             RoleViewModel role = _roleService.GetRole(Id);
-            //TempData["PageSelected"] = "RoleManagement";
+            TempData["PageSelected"] = "RoleManagement";
             return View(role);
 
         }
@@ -122,6 +121,8 @@ namespace ITSupport.WebUI.Controllers
             {
                 TempData["PageSelected"] = "RoleManagement";
                 _permissionService.UpdatePermission(model);
+                var permissions = _permissionService.GetPermission((Guid)Session["RoleId"]).ToList(); 
+                Session["permissions"] = permissions;
                 return RedirectToAction("Index", "Admin");
             }
         }

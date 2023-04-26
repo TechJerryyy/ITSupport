@@ -13,8 +13,7 @@ namespace ITSupport.SQL.Repository
     public class LoginRepository : ILoginRepository
     {
 
-        internal DataContext context;
-        
+        internal DataContext context;        
 
         public LoginRepository(DataContext context)
         {
@@ -26,7 +25,5 @@ namespace ITSupport.SQL.Repository
             var user = context.Users.Where(x => x.Email == model.Email && !x.IsDeleted).FirstOrDefault();
             return user;
         }
-
-
     }
 }

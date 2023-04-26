@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ITSupport.WebUI.Models
+namespace ITSupport.WebUI.ActionFilters
 {
     public class UserAuth : AuthorizeAttribute
     {

@@ -8,20 +8,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Systems </title>
 </head>
 <body>
     <div class="section">
         <div class="container">
             <div class="topTitleHead pb20">
-                <h2>Systems</h2>
             </div>
             <!----- Tabs ---->
             <div class="tab">
                 <ul class="align-center">
                     <li> <a id="UserManagementTab" class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
                     <li> <a id="RoleManagementTab" class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
-                    <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')">Settings </a> </li>
+                    <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')"> Common Lookup </a> </li>
                     <li> <a id="ActivityManagementTab" class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
                     <li> <a id="ErrorlogsTab" class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
                 </ul>
@@ -95,7 +93,7 @@
         }
     }
     $(document).ready(function () {
-        var data = '@TempData["PageSelected"]';
+        var data = '@ViewBag.Selected';
         if (data != '') {
             openSystems(null, data);
         }
