@@ -25,6 +25,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleService.GetRoleList().ToList();
+            TempData["PageSelected"] = "RoleManagement";    
             return PartialView("_RoleIndexPartial", roles.ToDataSourceResult(request));
         }
         public ActionResult GetAllRolesJson([DataSourceRequest] DataSourceRequest request)
@@ -32,13 +33,11 @@ namespace ITSupport.WebUI.Controllers
             List<RoleViewModel> userRoleViewModels = _roleService.GetRoleList().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();
             return Json(userRoleViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult Create()
         {
             TempData["PageSelected"] = "RoleManagement";
             return View();
         }
-
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
@@ -62,15 +61,12 @@ namespace ITSupport.WebUI.Controllers
                 }
             }
         }
-
         public ActionResult Edit(Guid Id)
         {
             RoleViewModel role = _roleService.GetRole(Id);
             TempData["PageSelected"] = "RoleManagement";
             return View(role);
-
         }
-
         [HttpPost]
         public ActionResult Edit(RoleViewModel model)
         {
@@ -104,7 +100,6 @@ namespace ITSupport.WebUI.Controllers
             ViewBag.RoleId = Id;
             return View(permision);
         }
-
         public ActionResult GetAllPermissionJson([DataSourceRequest] DataSourceRequest request, Guid Id)
         {
             List<PermissionViewModel> permissionViewModels = _permissionService.GetPermission(Id).ToList();

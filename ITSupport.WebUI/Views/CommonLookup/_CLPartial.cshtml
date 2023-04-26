@@ -2,13 +2,14 @@
 <div class="modal-header">
     @if (Model.IsEdit)
     {<span class="modal-title">Edit CommonLookup </span>
-        <a href="#" class="close" data-dismiss="modal">&times;</a>}
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+    }
     else
     {<span class="modal-title">Create CommonLookup </span>
-        <a href="#" class="close" data-dismiss="modal">&times;</a>}
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+    }
 </div>
 <div class="modal-body">
-
     <form id="Lookupform">
         <div id="CommonLookupError"></div>
         <div>
@@ -55,12 +56,9 @@
             {<span>Save</span>}
         </a>
     </div>
-
 </div>
 
-
 <script>
-
     function CLSave() {
         isSaveClicked = true;
         var form = $("#Lookupform").serialize();
@@ -68,10 +66,8 @@
         var configName = $("#ConfigName").val();
         var configKey = $("#ConfigKey").val();
         var configValue = $("#ConfigValue").val();
-
         if (configName != '' && configKey != '' && configValue != '') {
             var url = IsEdit == 'False' ? '/CommonLookup/Create' : '/CommonLookup/Edit';
-
             $.ajax({
                 type: 'POST',
                 url: url,
@@ -94,7 +90,6 @@
                             $('.modal-backdrop').remove();
                         });
                     }
-
                 }
             })
         }
@@ -102,14 +97,12 @@
             ValidationMessage();
         }
     }
-
     function ValidationMessage() {
 
         if (isSaveClicked) {
             var configName = $("#ConfigName").val();
             var configKey = $("#ConfigKey").val();
             var configValue = $("#ConfigValue").val();
-
             if (configName == '') {
                 $("#configNameError").text("Config Name is required.")
             }

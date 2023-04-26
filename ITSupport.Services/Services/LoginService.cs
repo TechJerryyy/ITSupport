@@ -12,14 +12,12 @@ namespace ITSupport.Services.Services
 {
     public class LoginService : ILoginService
     {
-
         private readonly ILoginRepository _loginRepository;
 
         public LoginService(ILoginRepository loginRepository)
         {
             _loginRepository = loginRepository;
         }
-
         public User Login(LoginViewModel model)
         {
             User user = _loginRepository.Login(model);
@@ -32,11 +30,9 @@ namespace ITSupport.Services.Services
                 }
             }
             return null;
-
         }
         private string HashPasword(string Password, string salt)
         {
-
             string stringDataToHash = Password + "" + salt;
             HashAlgorithm hashAlg = new SHA256CryptoServiceProvider();
             byte[] bytValue = System.Text.Encoding.UTF8.GetBytes(stringDataToHash);
@@ -44,6 +40,5 @@ namespace ITSupport.Services.Services
             string base64 = Convert.ToBase64String(bytHash);
             return base64;
         }
-
     }
 }

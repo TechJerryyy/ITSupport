@@ -11,8 +11,7 @@ namespace ITSupport.WebUI.Controllers
     [UserAuth]
     [PermissionActionFilter("ADMIN", CheckRights.PermissionOrder.IsView)]
     public class AdminController : Controller
-    {
-        
+    {        
         // GET: Admin
         public ActionResult Index()
         {

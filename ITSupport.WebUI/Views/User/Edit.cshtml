@@ -36,11 +36,8 @@
                     </div>
                     <div class="inputBox selectBox">
                         @Html.LabelFor(model => model.RoleId)
-
                         @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.DropDowns, "Id", "Name"), "SelectRole", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "errorMsg" })
-
-
                     </div>
                     <div class="inputBox">
                         @Html.LabelFor(model => model.Email)
@@ -82,9 +79,7 @@
                 <div class="inputBox">
                     <button type="submit" class="btnDiv">Save</button>
                 </div>
-                <div>
-                    @Html.ActionLink("Back to List", "Index", "Admin")
-                </div>
+                <a href="/Admin/Index/">Back to List</a>
             </div>
         </div>
         <!----- END Form ---->

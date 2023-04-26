@@ -18,13 +18,10 @@ namespace ITSupport.Services.Services
         {
             _roleRepository = roleRepository;
         }
-
-
         public List<Role> GetRoleList()
         {
             return _roleRepository.Collection().Where(x => !x.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
         }
-
         public string CreateRole(RoleViewModel model)
         {
             var codeCheck = _roleRepository.Collection().Where(x => x.Code == model.Code && !x.IsDeleted).Any();
@@ -42,13 +39,10 @@ namespace ITSupport.Services.Services
                 Code = model.Code.ToUpper().Trim(),
                 Name = model.Name
             };
-
-
             _roleRepository.Insert(role);
             _roleRepository.Commit();
             return null;
         }
-
         public string EditRole(RoleViewModel model)
         {
             var codeCheck = _roleRepository.Collection().Where(x => x.Id != model.Id && x.Code == model.Code && !x.IsDeleted).Any();
@@ -65,12 +59,10 @@ namespace ITSupport.Services.Services
             role.Name = model.Name;
             role.Code = model.Code.ToUpper().Trim();
             role.UpdatedOn = DateTime.Now;
-
             _roleRepository.Update(role);
             _roleRepository.Commit();
             return null;
         }
-
         public RoleViewModel GetRole(Guid Id)
         {
             var role = _roleRepository.Find(Id);
@@ -91,7 +83,6 @@ namespace ITSupport.Services.Services
             _roleRepository.Commit();
         }
     }
-
     public interface IRoleService
     {
         List<Role> GetRoleList();

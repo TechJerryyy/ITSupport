@@ -14,36 +14,28 @@ namespace ITSupport.SQL.Repository
         internal DataContext context;
         internal DbSet<User> dbSet;
         internal DbSet<UserRole> urdbSet;
-
         public UserRepository(DataContext context)
         {
             this.context = context;
             this.dbSet = context.Set<User>();
             this.urdbSet = context.Set<UserRole>();
-
         }
         public IQueryable<User> Collection()
         {
             return dbSet;
         }
-
-
         public void Commit()
         {
             context.SaveChanges();
         }
-
         public User Find(Guid Id)
         {
             return dbSet.Find(Id);
         }
-
         public void Insert(User user)
         {
             dbSet.Add(user);
-
         }
-
         public void Delete(Guid Id)
         {
             var user = Find(Id);
@@ -83,7 +75,6 @@ namespace ITSupport.SQL.Repository
 
                          }).FirstOrDefault();
             return users;
-
         }
         public List<UserViewModel> GetUsers()
         {
@@ -106,12 +97,8 @@ namespace ITSupport.SQL.Repository
                          }).ToList();
             return users;
         }
-
     }
 }
-
-
-
 public interface IUserRepository
 {
     IQueryable<User> Collection();
@@ -123,5 +110,4 @@ public interface IUserRepository
     void Delete(Guid Id);
     List<UserViewModel> GetUsers();
     UserViewModel GetUserById(Guid Id);
-
 }

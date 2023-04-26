@@ -22,8 +22,6 @@ namespace ITSupport.SQL.Repository
     {
         internal DataContext context;
         internal DbSet<Role> dbSet;
-       
-
         public RoleRepository(DataContext context)
         {
             this.context = context;

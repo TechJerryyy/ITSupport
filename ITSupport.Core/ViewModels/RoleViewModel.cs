@@ -10,7 +10,6 @@ namespace ITSupport.Core.ViewModels
     public class RoleViewModel
     {
         [Required(ErrorMessage = "Role Name is Required")]
-
         public string Name { get; set; }
         [Required(ErrorMessage = "Role Code is Required")]
         public string Code { get; set; }

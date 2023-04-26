@@ -14,13 +14,11 @@ namespace ITSupport.Services.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IRepository<UserRole> _userRoleRepository;
-
         public UserService(IUserRepository userRepository, IRepository<UserRole> userRoleRepository)
         {
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
         }
-
         private static string CreateSalt(int size)
         {
             // Generate a cryptographic random number using the cryptographic 
@@ -31,8 +29,6 @@ namespace ITSupport.Services.Services
             // Return a Base64 string representation of the random number
             return Convert.ToBase64String(buff);
         }
-
-
         private string HashPasword(string Password, out string salt)
         {
             salt = CreateSalt(64);
@@ -59,12 +55,10 @@ namespace ITSupport.Services.Services
             user.Name = model.Name;
             user.UserName = model.UserName;
             user.Email = model.Email;
-
             user.Password = password;
             user.PasswordSalt = salt;
             user.Gender = model.Gender;
             user.MobileNumber = model.MobileNumber;
-
             _userRepository.Insert(user);
             _userRepository.Commit();
             UserRole userRole = new UserRole
@@ -74,11 +68,8 @@ namespace ITSupport.Services.Services
             };
             _userRoleRepository.Insert(userRole);
             _userRoleRepository.Commit();
-
-
             return null;
         }
-
         public void DeleteUser(Guid Id)
         {
             UserViewModel model = new UserViewModel();
@@ -91,7 +82,6 @@ namespace ITSupport.Services.Services
             _userRoleRepository.Update(userRole);
             _userRoleRepository.Commit();
         }
-
         public string EditUser(UserViewModel model)
         {
             if (_userRepository.Collection().Where(x => x.Id != model.Id && x.UserName == model.UserName && !x.IsDeleted).Any())
@@ -112,13 +102,11 @@ namespace ITSupport.Services.Services
             user.UpdatedOn = DateTime.Now;
             _userRepository.Update(user);
             _userRepository.Commit();
-
             var userRole = _userRoleRepository.Collection().Where(x => x.UserId == model.Id).FirstOrDefault();
             userRole.RoleId = model.RoleId;
             userRole.UpdatedOn = DateTime.Now;
             _userRoleRepository.Update(userRole);
             _userRoleRepository.Commit();
-
             return null;
 
         }
@@ -126,16 +114,12 @@ namespace ITSupport.Services.Services
         {
             return _userRepository.GetUserById(Id);
         }
-
         public List<UserViewModel> GetUsers()
         {
             //return _userRepository.Collection().Where(x => !x.IsDeleted).ToList();
             return _userRepository.GetUsers();
-
         }
-
     }
-
     public interface IUserService
     {
         List<UserViewModel> GetUsers();
@@ -143,9 +127,6 @@ namespace ITSupport.Services.Services
         string CreateUser(UserViewModel model);
         string EditUser(UserViewModel model);
         void DeleteUser(Guid Id);
-
     }
-
-
 }
 

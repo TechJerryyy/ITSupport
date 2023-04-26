@@ -62,7 +62,6 @@ namespace ITSupport.WebUI.ActionFilters
                 }
             }           
         }
-
         public class PermissionOrder
         {
         }

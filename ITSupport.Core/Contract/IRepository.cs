@@ -9,7 +9,6 @@ namespace ITSupport.Core.Contract
 {
     public interface IRepository<T> where T : BaseEntity
     {
-
         IQueryable<T> Collection();
         void Commit();
         void Delete(Guid Id);

@@ -1,5 +1,6 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.ViewModels
+@using ITSupport.WebUI.ActionFilters
 @Styles.Render("~/Content/css")
 @{
     ViewBag.Title = "Index";
@@ -37,10 +38,17 @@
                     columns.Bound(c=>c.FormAccessCode).Width(60);
                     columns.Bound(c=>c.DisplayIndex).Width(60);
                     columns.Bound(c => c.IsActive).Width(60);
-                    columns.Template(c => { }).Title("Action")
-                           .ClientTemplate(
-                              "<a href='" + Url.Action("Edit", "FormMst") + "/#=Id#' class='iconDiv'><i class='editIcon'></i></a>" + "  " +
-                              "<a href='" + Url.Action("Delete", "FormMst") + "/#=Id#' class='iconDiv'><i class='deleteIcon'></i></a>").Width(40);
+                    if (CheckRights.Update || CheckRights.Delete)
+                    {
+                        columns.Template(c => c.Id).Title("Action")
+                        .ClientTemplate(
+                             "#if ('" + CheckRights.Update + "'=='True') {#"
+                             + " <a href='" + Url.Action("Edit", "FormMst") + "/#=Id#')'><img src='/Images/edit.svg'></a>"
+                             + "#}#"
+                             + "#if ('" + CheckRights.Delete + "'=='True') {#"
+                             + " <a href='" + Url.Action("Delete", "FormMst") + "/#=Id#')'><img src='/Images/trash.svg'></a>"
+                             + "#}#").Width(40);
+                    }
                 })
 .HtmlAttributes(new { style = "heigh: 550px" })
 .Groupable()

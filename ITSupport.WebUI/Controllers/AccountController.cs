@@ -25,7 +25,6 @@ namespace ITSupport.WebUI.Controllers
             _permissionService = permissionService;
             _formService = formService;
         }
-
         // GET: Account
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -58,7 +57,6 @@ namespace ITSupport.WebUI.Controllers
                     //List<FormMstViewModel> forms = _formService.(roleid);
                     //Session["forms"] = forms;
                     return RedirectToAction("Index", "Home");
-
                 }
                 else
                 {

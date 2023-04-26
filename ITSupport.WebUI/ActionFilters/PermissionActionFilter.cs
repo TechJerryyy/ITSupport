@@ -12,7 +12,6 @@ namespace ITSupport.WebUI.ActionFilters
     {
         public string FormName;
         public readonly CheckRights.PermissionOrder _permissionOrder;
-
         public PermissionActionFilter(string form, CheckRights.PermissionOrder permissionOrder)
         {
             FormName = form;
@@ -32,6 +31,5 @@ namespace ITSupport.WebUI.ActionFilters
             }
             base.OnActionExecuting(filterContext);
         }
-
     }
 }

@@ -1,6 +1,5 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.Models
-
 <div class="align-center align-between pb20">
     <h2>CommonLookup Management</h2>
     <div class="btnDiv">
@@ -17,7 +16,6 @@
     columns.Bound(c => c.IsActive).Width(70);
 
     columns.Command(command => { command.Custom("Edit").Click("Create").IconClass("k-i-edit").Text(" "); command.Custom("Delete").Click("ConfirmDelete").IconClass("k-i-delete").Text(" "); }).Width(70);
-
 })
 .HtmlAttributes(new { style = "heigh: 550px" })
 .Groupable()
@@ -48,8 +46,6 @@
     </div>
 </div>
 
-
-
 <div class="modal fade" id="ConfirmDeleteModal">
     <div class="modal-dialog">
         <div class="modal-content" id="confirm">
@@ -59,7 +55,6 @@
             </div>
             <div class="modal-body">
                 <h4>Are You Sure? You Want to Delete this.</h4>
-
             </div>
             <input type="hidden" id="hdnDeleteId" />
             <div class="modal-footer">

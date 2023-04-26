@@ -10,7 +10,6 @@ namespace ITSupport.Core.Contract
 {
     public interface ILoginRepository
     {
-
         User Login(LoginViewModel model);
     }
 }

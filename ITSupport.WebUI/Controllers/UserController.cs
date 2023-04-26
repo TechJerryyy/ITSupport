@@ -24,6 +24,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<UserViewModel> user = _userService.GetUsers().ToList();
+            TempData["PageSelected"] = "UserManagement";
             return PartialView("_UserIndexPartial", user.ToDataSourceResult(request));
         }
         public ActionResult GetAllUsers([DataSourceRequest] DataSourceRequest request)
@@ -37,6 +38,7 @@ namespace ITSupport.WebUI.Controllers
             {
                 DropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList()
             };
+            TempData["PageSelected"] = "UserManagement";
             return View(user);
         }
         [HttpPost]
@@ -60,9 +62,7 @@ namespace ITSupport.WebUI.Controllers
             UserViewModel user = _userService.GetUser(Id);
             user.DropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
             return View(user);
-
         }
-
         [HttpPost]
         public ActionResult Edit(UserViewModel model)
         {

@@ -55,19 +55,14 @@
                     </div>
                     <div class="inputBox">
                         @Html.LabelFor(model => model.UserName)
-
                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @placeholder = "Enter UserName" } })
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "errorMsg" })
-
                     </div>
-
                     <div class="inputBox">
                         @Html.LabelFor(model => model.MobileNumber)
                         @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @placeholder = "0" } })
                         @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "errorMsg" })
-
                     </div>
-
                     <div class="inputBox">
                         @Html.LabelFor(model => model.Gender)
                         <div class="radioBtnSection">
@@ -87,11 +82,8 @@
                     @*<button type="submit" class="btnDiv">Create</button>*@
                     <button class="btnDiv">Create</button>
                 </div>
-                <div>
-                    @Html.ActionLink("Back to List", "Index", "Admin")
-                </div>
+                <a href="/Admin/Index/">Back to List</a>
             </div>
-
         </div>
         <!----- END Form ---->
     }

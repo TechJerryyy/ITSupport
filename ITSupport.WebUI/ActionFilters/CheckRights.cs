@@ -11,12 +11,10 @@ namespace ITSupport.WebUI.ActionFilters
         public static bool Insert { get; set; }
         public static bool Update { get; set; }
         public static bool Delete { get; set; }
-
         public static string IsView = "IsView";
         public static string IsInsert = "IsInsert";
         public static string IsUpdate = "IsUpdate";
         public static string IsDelete = "IsDelete";
-
         public enum PermissionOrder
         {
             IsView = 1,

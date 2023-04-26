@@ -40,13 +40,10 @@ namespace ITSupport.Services.Services
                 form.FormAccessCode = model.FormAccessCode.ToUpper().Trim();
                 form.DisplayIndex = model.DisplayIndex;
                 form.IsActive = model.IsActive;
-
                 _formMstRepository.Insert(form);
                 _formMstRepository.Commit();
-
                 return null;
             }
-
         }
         public string EditForm(FormMstViewModel model)
         {
@@ -65,10 +62,8 @@ namespace ITSupport.Services.Services
                 form.IsActive = model.IsActive;
                 form.UpdatedOn = DateTime.Now;
                 form.ParentFormID = model.ParentFormId;
-
                 _formMstRepository.Update(form);
                 _formMstRepository.Commit();
-
                 var permission = _PermissionRepository.Collection().Where(x => x.FormId == model.Id).ToList();
                 foreach (var item in permission)
                 {
@@ -85,7 +80,6 @@ namespace ITSupport.Services.Services
             formMst.IsDeleted = true;
             _formMstRepository.Update(formMst);
             _formMstRepository.Commit();
-
             var permission = _PermissionRepository.Collection().Where(x => x.FormId == Id).ToList();
             foreach (var item in permission)
             {

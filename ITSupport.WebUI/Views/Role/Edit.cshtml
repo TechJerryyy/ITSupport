@@ -45,14 +45,6 @@
             </div>
         </div>
     }
-   @* @Html.ActionLink("Back to List","Index","Admin",new { TempData["PageSelected"]= "RoleManagement" })*@
-    <button id="backToList" >Back to List</button>
-    <script>
-        $(document).ready(function () {
-            $('#backToList').click(function () {
-                history.back();
-            });
-        });
-    </script>
+    <button id="backToList" onclick="history.back()">Back to List</button>
     </body>
 </html>

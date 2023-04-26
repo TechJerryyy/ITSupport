@@ -19,17 +19,15 @@ namespace ITSupport.Core.ViewModels
         [EmailAddress(ErrorMessage = "Please enter a valid email")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
-       // [DataType(DataType.Password)]
+        //[DataType(DataType.Password)]
         [Display(Name = "Password")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$", ErrorMessage = "Password Must contain Minimum 8 and maximum 15 characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Please Select Gender")]
         public string Gender { get; set; }
-
         //[DataType(DataType.PhoneNumber, ErrorMessage = "Not a number")]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "Please Add valid mobile Number")]
         public string MobileNumber { get; set; }
-
         public Guid? Id { get; set; }
         [Required(ErrorMessage = "Please Select Role")]
         [Display(Name = "Role")]
@@ -38,7 +36,6 @@ namespace ITSupport.Core.ViewModels
         //[Required(ErrorMessage = "Please Select Role")]
         public List<DropDown> DropDowns { get; set; }
     }
-
     public class DropDown
     {
         public Guid Id { get; set; }

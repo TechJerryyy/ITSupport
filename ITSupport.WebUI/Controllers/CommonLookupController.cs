@@ -59,7 +59,6 @@ namespace ITSupport.WebUI.Controllers
                     return Content("False");
                 }           
         }
-
         [HttpPost]
         public ActionResult Edit(CommonLookup model)
         {
@@ -75,7 +74,6 @@ namespace ITSupport.WebUI.Controllers
                 }
         }
         [HttpPost]
-
         public ActionResult Delete(Guid Id)
         {
             CommonLookup commonLookup = _commonLookupService.GetCommonLookup(Id);

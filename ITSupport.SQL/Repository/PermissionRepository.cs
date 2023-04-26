@@ -19,7 +19,6 @@ namespace ITSupport.SQL.Repository
         void Delete(Guid RoleId);
         List<PermissionViewModel> GetPermission(Guid RoleId);
     }
-
     public class PermissionRepository : IPermissionRepository
     {
         internal DataContext context;
@@ -46,7 +45,6 @@ namespace ITSupport.SQL.Repository
             dbSet.Attach(permission);
             context.Entry(permission).State = EntityState.Modified;
         }
-
         public void Delete(Guid RoleId)
         {
             var per = Find(RoleId);

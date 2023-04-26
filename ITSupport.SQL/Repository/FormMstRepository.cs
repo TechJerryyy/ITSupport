@@ -22,37 +22,30 @@ namespace ITSupport.SQL.Repository
         {
             return dbSet;
         }
-
-
         public void Commit()
         {
             context.SaveChanges();
         }
-
         public FormMst Find(Guid Id)
         {
             return dbSet.Find(Id);
         }
-
         public void Insert(FormMst form)
         {
             dbSet.Add(form);
 
         }
-
         public void Delete(Guid Id)
         {
             var form = Find(Id);
             if (context.Entry(form).State == EntityState.Detached)
                 dbSet.Attach(form);
             dbSet.Remove(form);
-
         }
         public void Update(FormMst form)
         {
             dbSet.Attach(form);
             context.Entry(form).State = EntityState.Modified;
-
         }
         public FormMstViewModel GetFormById(Guid Id)
         {
@@ -73,7 +66,6 @@ namespace ITSupport.SQL.Repository
                             IsActive = f.IsActive,
                         }).FirstOrDefault();
             return form;
-
         }
         public List<FormMstViewModel> GetForms()
         {
@@ -97,7 +89,6 @@ namespace ITSupport.SQL.Repository
             return forms;
         }
     }
-
     public interface IFormMstRepository
     {
         IQueryable<FormMst> Collection();
