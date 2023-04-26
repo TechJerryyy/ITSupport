@@ -1,6 +1,6 @@
 ﻿using ITSupport.Core.ViewModels;
 using ITSupport.Services.Services;
-using ITSupport.WebUI.Models;
+using ITSupport.WebUI.ActionFilters;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -33,8 +33,10 @@ namespace ITSupport.WebUI.Controllers
         }
         public ActionResult Create()
         {
-            UserViewModel user = new UserViewModel();
-            user.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+            UserViewModel user = new UserViewModel
+            {
+                DropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList()
+            };
             return View(user);
         }
         [HttpPost]
@@ -44,7 +46,7 @@ namespace ITSupport.WebUI.Controllers
             if (user != null)
             {
                 ViewBag.message = user;
-                model.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                model.DropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
                 return View(model);
             }
             else
@@ -56,7 +58,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Edit(Guid Id)
         {
             UserViewModel user = _userService.GetUser(Id);
-            user.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+            user.DropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
             return View(user);
 
         }
@@ -68,7 +70,7 @@ namespace ITSupport.WebUI.Controllers
             if (user != null)
             {
                 ViewBag.message = user;
-                model.dropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                model.DropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
                 return View(model);
             }
             else

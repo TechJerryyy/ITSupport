@@ -79,6 +79,7 @@ namespace ITSupport.SQL.Repository
         {
             var forms = (from f in context.Forms.Where(x => !x.IsDeleted).AsEnumerable()
                          join m in context.Forms on f.ParentFormID equals m.Id into fdata
+                         orderby f.DisplayIndex ascending
                          from mf in fdata.DefaultIfEmpty()
                          select new FormMstViewModel
                          {

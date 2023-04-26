@@ -36,7 +36,7 @@ namespace ITSupport.Core.ViewModels
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
         //[Required(ErrorMessage = "Please Select Role")]
-        public List<DropDown> dropDowns { get; set; }
+        public List<DropDown> DropDowns { get; set; }
     }
 
     public class DropDown

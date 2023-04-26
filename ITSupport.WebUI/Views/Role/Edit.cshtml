@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> Systems </title>
-    <link rel="stylesheet" href="~/Style/login.css">
 </head>
 <body>
     @using (Html.BeginForm())
@@ -46,12 +45,11 @@
             </div>
         </div>
     }
-
-    <button id="backToList">Back to List</button>
+   @* @Html.ActionLink("Back to List","Index","Admin",new { TempData["PageSelected"]= "RoleManagement" })*@
+    <button id="backToList" >Back to List</button>
     <script>
         $(document).ready(function () {
             $('#backToList').click(function () {
-                debugger;
                 history.back();
             });
         });

@@ -72,10 +72,15 @@
     <Compile Include="Migrations\202304110419131_add-changes.designer.cs">
       <DependentUpon>202304110419131_add-changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304110926512_add_table_initial_permission.cs" />
+    <Compile Include="Migrations\202304110926512_add_table_initial_permission.designer.cs">
+      <DependentUpon>202304110926512_add_table_initial_permission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\FormMstRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
+    <Compile Include="Repository\PermissionRepository.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\SQLRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
@@ -105,6 +110,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304110419131_add-changes.resx">
       <DependentUpon>202304110419131_add-changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304110926512_add_table_initial_permission.resx">
+      <DependentUpon>202304110926512_add_table_initial_permission.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

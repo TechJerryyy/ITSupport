@@ -7,19 +7,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ITSupport.Services.Services
 {
     public class FormMstService : IFormMstService
     {
         private readonly IFormMstRepository _formMstRepository;
-        public FormMstService(IFormMstRepository formMstRepository)
+        private readonly IPermissionRepository _PermissionRepository;
+        public FormMstService(IFormMstRepository formMstRepository, IPermissionRepository PermissionRepository)
         {
             _formMstRepository = formMstRepository;
+            _PermissionRepository = PermissionRepository;
         }
         public string CreateForm(FormMstViewModel model)
         {
-            var forms = _formMstRepository.Collection().Where(x => x.FormAccessCode == model.FormAccessCode).FirstOrDefault();
+            var forms = _formMstRepository.Collection().Where(x => x.FormAccessCode == model.FormAccessCode && !x.IsDeleted).FirstOrDefault();
             if (forms != null)
             {
                 return "Form already exists!";
@@ -47,7 +50,7 @@ namespace ITSupport.Services.Services
         }
         public string EditForm(FormMstViewModel model)
         {
-            var forms = _formMstRepository.Collection().Where(x =>x.Id!=model.Id && x.FormAccessCode == model.FormAccessCode).FirstOrDefault();
+            var forms = _formMstRepository.Collection().Where(x => x.Id != model.Id && x.FormAccessCode == model.FormAccessCode && !x.IsDeleted).FirstOrDefault();
             if (forms != null)
             {
                 return "Form already exists!";
@@ -62,10 +65,16 @@ namespace ITSupport.Services.Services
                 form.IsActive = model.IsActive;
                 form.UpdatedOn = DateTime.Now;
                 form.ParentFormID = model.ParentFormId;
-                
+
                 _formMstRepository.Update(form);
                 _formMstRepository.Commit();
 
+                var permission = _PermissionRepository.Collection().Where(x => x.FormId == model.Id).ToList();
+                foreach (var item in permission)
+                {
+                    _PermissionRepository.Update(item);
+                    _PermissionRepository.Commit();
+                }
                 return null;
             }
         }
@@ -76,6 +85,14 @@ namespace ITSupport.Services.Services
             formMst.IsDeleted = true;
             _formMstRepository.Update(formMst);
             _formMstRepository.Commit();
+
+            var permission = _PermissionRepository.Collection().Where(x => x.FormId == Id).ToList();
+            foreach (var item in permission)
+            {
+                item.IsDeleted = true;
+                _PermissionRepository.Update(item);
+                _PermissionRepository.Commit();
+            }
         }
         public FormMstViewModel GetForm(Guid Id)
         {

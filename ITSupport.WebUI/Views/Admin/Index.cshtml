@@ -8,21 +8,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Systems </title>
-    @*<link rel="stylesheet" href="~/Style/login.css">*@
 </head>
 <body>
     <div class="section">
         <div class="container">
             <div class="topTitleHead pb20">
-                <h2>Systems</h2>
             </div>
             <!----- Tabs ---->
             <div class="tab">
                 <ul class="align-center">
                     <li> <a id="UserManagementTab" class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
                     <li> <a id="RoleManagementTab" class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
-                    <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')">Settings </a> </li>
+                    <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')"> Common Lookup </a> </li>
                     <li> <a id="ActivityManagementTab" class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
                     <li> <a id="ErrorlogsTab" class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
                 </ul>
@@ -63,15 +60,10 @@
 </html>
 
 <script>
-    $(document).ready(function () {
-        var data = '@TempData["PageSelected"]';
-        if (data != '') {
-            openSystems(null, data);
-        }
-    });
-    $(document).ready(function () {
-       $('#Users').load('@Url.Action("Index" , "User")');
-    });
+    //$(document).ready(function () {
+    //    debugger;
+    //    window.history.pushState("/Index", "/Index/{id}");
+    //});
     function openSystems(evt, SystemsName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -82,8 +74,6 @@
         for (i = 0; i < tablinks.length; i++) {
             tablinks[i].className = tablinks[i].className.replace(" active", "");
         }
-        //document.getElementById(SystemsName).style.display = "block";
-        //evt.currentTarget.className += " active";
         document.getElementById(SystemsName).style.display = "block";
         if (evt != null) {
             evt.currentTarget.className += " active";
@@ -101,8 +91,16 @@
         else if (SystemsName == "CommonLookupManagement") {
             $('#CommonLookupManagement').load('@Url.Action("Index" , "CommonLookup")')
         }
-
     }
+    $(document).ready(function () {
+        var data = '@ViewBag.Selected';
+        if (data != '') {
+            openSystems(null, data);
+        }
+    });
+    $(document).ready(function () {
+       $('#Users').load('@Url.Action("Index" , "User")');
+    });
 </script>
 <script>
     var isSaveClicked = false;
@@ -133,9 +131,6 @@
         })
 
     }
-
-</script>
-<script>
     function ConfirmDelete(e) {
         var d = this.dataItem($(e.currentTarget).closest("tr"));
         Id = d.Id;

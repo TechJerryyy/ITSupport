@@ -1,7 +1,7 @@
 ﻿using ITSupport.Core.Models;
 using ITSupport.Core.ViewModels;
 using ITSupport.Services.Services;
-using ITSupport.WebUI.Models;
+using ITSupport.WebUI.ActionFilters;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -16,11 +16,14 @@ namespace ITSupport.WebUI.Controllers
     public class FormMstController : Controller
     {
         private readonly IFormMstService _formService;
-        public FormMstController(IFormMstService formService)
+        private readonly IPermissionService _permissionService;
+        public FormMstController(IFormMstService formService, IPermissionService permissionService)
         {
             _formService = formService;
+            _permissionService = permissionService;
         }
         // GET: FormMst
+        [PermissionActionFilter("FM", CheckRights.PermissionOrder.IsView)]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<FormMstViewModel> forms = _formService.GetForms().ToList();
@@ -62,6 +65,8 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Edit(FormMstViewModel model)
         {
             var form = _formService.EditForm(model);
+            var permission = _permissionService.GetPermission((Guid)Session["RoleId"]).ToList();
+            Session["permissions"] = permission;
             if (form != null)
             {
                 ViewBag.message = form;
@@ -87,6 +92,8 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult ConfirmDelete(Guid Id)
         {
             _formService.DeleteForm(Id);
+            var permission = _permissionService.GetPermission((Guid)Session["RoleId"]).ToList();
+            Session["permissions"] = permission;
             return RedirectToAction("Index", "FormMst");
         }
     }

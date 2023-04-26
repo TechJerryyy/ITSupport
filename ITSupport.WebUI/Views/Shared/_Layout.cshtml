@@ -1,22 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@using ITSupport.Core.ViewModels
+<!DOCTYPE html>
 <html lang="en-us">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Systems </title>
+    <title> ITSupport @ViewBag.title </title>
     <link rel="icon" type="image/x-icon" href="~/Images/aakash-informatics-squareLogo-1615467716612.png">
     <link rel="stylesheet" href="~/css/style.css">
     @Scripts.Render("~/bundles/jquery")
-    @*<script src="~/Scripts/jquery.validate.min.js"></script>
-        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
-
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Kendo")
 
-    @RenderSection("scripts", required: false)
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    @RenderSection("scripts", required: false)
 </head>
 <body>
     <div class="mainDiv">
@@ -25,14 +23,43 @@
             <div class="container">
                 <div class="align-center align-between">
                     <div class="align-center">
-                        <div class="logoDiv"> <a href="#"> <img src="~/Images/logo.svg" alt="CRB Logo"> </a> </div>
+                        <div class="logoDiv"> <a href="#" @*href="@Html.ActionLink("Index", "Home")"*@> <img src="~/Images/itstm.svg" alt="ITSTM Logo"> </a> </div>
 
                         <div class="menuDiv">
                             <ul class="align-center">
-                                <li> @Html.ActionLink("Home", "Index", "Home") </li>
-                                <li> <a href="#"> Ticket </a> </li>
-                                <li>@Html.ActionLink("Systems", "Index", "Admin")</li>
-                                <li>@Html.ActionLink("FormMst", "Index", "FormMst")</li>
+                                @if (Session["UserId"] != null)
+                                {
+                                    var list = Session["Permissions"] as List<PermissionViewModel>;
+                                    foreach (var item in list.Where(x => x.View == true && x.ParentFormId == null))
+                                    {
+                                        <div class="userInfo">
+                                            <div class="align-center">
+                                                <div class="userName align-center">
+                                                    @if (list.Where(x => x.ParentFormId == item.FormId).Count() > 0)
+                                                    {
+                                                        if (list.Where(x => x.ParentFormId == item.FormId && x.View == true).Count() > 0)
+                                                        {
+                                                            <span><a href="@item.NavigateURL" style="color: #fffdfc; font-size:20px;"> @item.FormName </a></span>
+                                                            <i> <img src="~/Images/down-arrow.svg" alt="Dropdown Icon"> </i>
+                                                            <div class="userInfoDiv">
+                                                                <div class="userInfoBox">
+                                                                    @foreach (var child in list.Where(x => x.ParentFormId == item.FormId && x.View == true))
+                                                                    {
+                                                                        <a href="@child.NavigateURL">@child.FormName</a>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <span><a href="@item.NavigateURL" style="color: #fffdfc; font-size:20px;"> @item.FormName </a></span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
                             </ul>
                         </div>
                     </div>
@@ -71,9 +98,9 @@
 </body>
 </html>
 
-
-
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2022.2.510/styles/kendo.common.min.css" />
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.2.0/default/default-main.css" />
-@Scripts.Render("~/Content/css")
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+@Styles.Render("~/Content/bootstrap.css")
 @Scripts.Render("~/bundles/bootstrap")

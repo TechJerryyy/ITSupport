@@ -1,12 +1,13 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.Models
+
 <div class="align-center align-between pb20">
     <h2>CommonLookup Management</h2>
     <div class="btnDiv">
         <a onclick="Create()" class="btn" data-toggle="modal">+ Add New CommonLookup</a>
     </div>
 </div>
-<div class="tablediv" id="CommonLookupTable">
+<div class="tablediv">
     @(Html.Kendo().Grid<CommonLookup>().Name("CommonLookupGrid").NoRecords("No records found!").Columns(columns=>
 {
     columns.Bound(c=>c.ConfigName).Width(70);
@@ -36,36 +37,37 @@
 .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetCommonLookups", "CommonLookup"))
 .PageSize(5))
 )
+</div>
+
+<div class="modal fade" id="CLModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="commonLookupform">
+
+
+        </div>
     </div>
-    <div class="modal fade" id="CLModal">
-        <div class="modal-dialog">
-            <div class="modal-content" id="commonLookupform">
+</div>
 
 
+
+<div class="modal fade" id="ConfirmDeleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="confirm">
+            <div class="modal-header">
+                <span class="modal-title"><i class="glyphicon glyphicon-alert" style="font-size: 30px; color: red;"></i></span>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want to Delete this.</h4>
+
+            </div>
+            <input type="hidden" id="hdnDeleteId" />
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a onclick="Deleteconfirmed()" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
+</div>
 
-
-
-    <div class="modal fade" id="ConfirmDeleteModal">
-        <div class="modal-dialog">
-            <div class="modal-content" id="confirm">
-                <div class="modal-header">
-                    <span class="modal-title"><i class="glyphicon glyphicon-alert" style="font-size: 30px; color: red;"></i></span>
-                    <a href="#" class="close" data-dismiss="modal">&times;</a>
-                </div>
-                <div class="modal-body">
-                    <h4>Are You Sure? You Want to Delete this.</h4>
-
-                </div>
-                <input type="hidden" id="hdnDeleteId" />
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
-                    <a onclick="Deleteconfirmed()" class="btn btn-danger">Delete</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @Styles.Render("~/Content/StyleSheet1.css")
+@Styles.Render("~/Content/StyleSheet1.css")

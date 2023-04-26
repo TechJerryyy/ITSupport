@@ -1,16 +1,16 @@
 ﻿@using Kendo.Mvc.UI
 @using ITSupport.Core.ViewModels
-@Styles.Render("~/Content/css")
+
 @(Html.Kendo().Grid<RoleViewModel>().Name("RoleGrid").NoRecords("No records found!").Columns(columns=>
-    {
+{
     columns.Bound(c=>c.Name).Width(100);
     columns.Bound(c=>c.Code).Width(100);
-    columns.Template(t => { })
+    columns.Template(c => { }).Title("Action")
             .ClientTemplate(
-                "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-pencil'/></a>").Width(11);
-    columns.Template(t => { }).ClientTemplate(
-                "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn'><i class='glyphicon glyphicon-trash'/></a>").Width(11);
-    })
+               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='iconDiv'><i class='editIcon'></i></a>" + "  " +
+               "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='iconDiv'><i class='deleteIcon'></i></a>" + "  " +
+               "<a href='" + Url.Action("ManagePermission", "Role") + "/#=Id#' class='iconDiv'><i class='permissionsIcon'></i></a>").Width(25);
+})
     .HtmlAttributes(new { style = "heigh: 550px" })
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .Groupable()
@@ -25,6 +25,5 @@
     .ToolBar(t => t.Search())
     .Pageable()
     .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAllRolesJson", "Role"))
-    .Destroy(destroy => destroy.Action("Delete", "Role"))
     .PageSize(5))
 )

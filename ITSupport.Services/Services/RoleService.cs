@@ -1,4 +1,5 @@
-﻿using ITSupport.Core.Models;
+﻿using ITSupport.Core.Contract;
+using ITSupport.Core.Models;
 using ITSupport.Core.ViewModels;
 using ITSupport.SQL.Repository;
 using System;
@@ -12,7 +13,8 @@ namespace ITSupport.Services.Services
     public class RoleService : IRoleService
     {
         private readonly IRoleRepository _roleRepository;
-        public RoleService(IRoleRepository roleRepository)
+        //private readonly IRepository<Permission> _permissionRepository;
+        public RoleService(IRoleRepository roleRepository/*, IRepository<Permission> permissionRepository*/)
         {
             _roleRepository = roleRepository;
         }
@@ -46,7 +48,6 @@ namespace ITSupport.Services.Services
             _roleRepository.Commit();
             return null;
         }
-
 
         public string EditRole(RoleViewModel model)
         {

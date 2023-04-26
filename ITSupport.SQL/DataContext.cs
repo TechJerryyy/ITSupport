@@ -19,5 +19,6 @@ namespace ITSupport.SQL
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<CommonLookup> CommonLookups { get; set; }
         public DbSet<FormMst> Forms { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
     }
 }
