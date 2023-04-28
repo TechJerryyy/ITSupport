@@ -418,6 +418,7 @@
     <Compile Include="Controllers\FormMstController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="ActionFilters\PermissionActionFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -5116,9 +5117,11 @@
     <Content Include="Views\FormMst\Delete.cshtml" />
     <Content Include="Views\Role\ManagePermission.cshtml" />
     <Content Include="Views\Account\Error404.cshtml" />
+    <Content Include="Views\Ticket\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\TicketImages\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

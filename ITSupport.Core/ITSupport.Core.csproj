@@ -42,15 +42,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contract\ICommonLookupService.cs" />
-    <Compile Include="Contract\ILoginRepository.cs" />
-    <Compile Include="Contract\ILoginService.cs" />
-    <Compile Include="Contract\IRepository.cs" />
+    <Compile Include="Interfaces\ICommonLookupService.cs" />
+    <Compile Include="Interfaces\ILoginRepository.cs" />
+    <Compile Include="Interfaces\ILoginService.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ITicketService.cs" />
+    <Compile Include="Interfaces\ITicketRepository.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\CommonLookup.cs" />
+    <Compile Include="Models\Constants.cs" />
+    <Compile Include="Models\DropDown.cs" />
     <Compile Include="Models\FormMst.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\TicketAttachment.cs" />
+    <Compile Include="Models\TicketComment.cs" />
+    <Compile Include="Models\TicketStatusHistory.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +66,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PermissionViewModel.cs" />
     <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\TicketViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

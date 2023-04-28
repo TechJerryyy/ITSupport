@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ITSupport.Core.ViewModels
 {
-    public class UserViewModel 
+    public class UserViewModel : BaseEntity
     {
         [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
@@ -28,17 +28,11 @@ namespace ITSupport.Core.ViewModels
         //[DataType(DataType.PhoneNumber, ErrorMessage = "Not a number")]
         [RegularExpression(@"^(\d{10})$", ErrorMessage = "Please Add valid mobile Number")]
         public string MobileNumber { get; set; }
-        public Guid? Id { get; set; }
         [Required(ErrorMessage = "Please Select Role")]
         [Display(Name = "Role")]
         public Guid RoleId { get; set; }
         public string RoleName { get; set; }
         //[Required(ErrorMessage = "Please Select Role")]
         public List<DropDown> DropDowns { get; set; }
-    }
-    public class DropDown
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
     }
 }

@@ -34,6 +34,7 @@ namespace ITSupport.WebUI.Controllers
             List<FormMstViewModel> forms = _formService.GetForms().ToList();
             return Json(forms.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
+        [PermissionActionFilter("FM", CheckRights.PermissionOrder.IsInsert)]
         public ActionResult Create()
         {
             FormMstViewModel forms = new FormMstViewModel
@@ -54,6 +55,7 @@ namespace ITSupport.WebUI.Controllers
             }
             return RedirectToAction("Index", "FormMst");
         }
+        [PermissionActionFilter("FM", CheckRights.PermissionOrder.IsUpdate)]
         public ActionResult Edit(Guid Id)
         {
             FormMstViewModel form = _formService.GetForm(Id);
@@ -75,6 +77,7 @@ namespace ITSupport.WebUI.Controllers
             }
             return RedirectToAction("Index", "FormMst");
         }
+        [PermissionActionFilter("FM", CheckRights.PermissionOrder.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
             FormMstViewModel form = _formService.GetForm(Id);

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITSupport.Core.Contract
+namespace ITSupport.Core.Interfaces
 {
-    public interface ILoginRepository
+    public interface ILoginService
     {
         User Login(LoginViewModel model);
     }

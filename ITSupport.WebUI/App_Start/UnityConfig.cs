@@ -1,4 +1,4 @@
-using ITSupport.Core.Contract;
+using ITSupport.Core.Interfaces;
 using ITSupport.Core.Models;
 using ITSupport.Services.Services;
 using ITSupport.SQL.Repository;
@@ -59,15 +59,22 @@ namespace ITSupport.WebUI
             container.RegisterType<IUserService, UserService>();
 
             container.RegisterType<ICommonLookupService, CommonLookupService>();
-            
+
             container.RegisterType<IFormMstRepository, FormMstRepository>();
             container.RegisterType<IFormMstService, FormMstService>();
+
+            container.RegisterType<ITicketRepository, TicketRepository>();
+            container.RegisterType<ITicketService, TicketService>();
 
             container.RegisterType<IRepository<Role>, SQLRepository<Role>>();
             container.RegisterType<IRepository<User>, SQLRepository<User>>();
             container.RegisterType<IRepository<UserRole>, SQLRepository<UserRole>>();
             container.RegisterType<IRepository<CommonLookup>, SQLRepository<CommonLookup>>();
             container.RegisterType<IRepository<FormMst>, SQLRepository<FormMst>>();
+            container.RegisterType<IRepository<Ticket>, SQLRepository<Ticket>>();
+            container.RegisterType<IRepository<TicketAttachment>, SQLRepository<TicketAttachment>>();
+            container.RegisterType<IRepository<TicketComment>, SQLRepository<TicketComment>>();
+            container.RegisterType<IRepository<TicketStatusHistory>, SQLRepository<TicketStatusHistory>>();
         }
     }
 }

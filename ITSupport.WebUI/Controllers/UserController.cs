@@ -1,4 +1,5 @@
-﻿using ITSupport.Core.ViewModels;
+﻿using ITSupport.Core.Models;
+using ITSupport.Core.ViewModels;
 using ITSupport.Services.Services;
 using ITSupport.WebUI.ActionFilters;
 using Kendo.Mvc.Extensions;

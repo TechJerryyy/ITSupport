@@ -27,7 +27,7 @@
                 </div>
                 <div class="formSection">
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Name)
+                        <label class="form-label">Name<strong style="color:red;font-size:20px">*</strong></label>
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @placeholder = "Enter Name" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
                     </div>
@@ -42,7 +42,7 @@
                         @Html.ValidationMessageFor(model => model.ParentFormId, "", new { @class = "errorMsg" })
                     </div>
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.FormAccessCode)
+                        <label class="form-label">FormAccessCode<strong style="color:red;font-size:20px">*</strong></label>
                         @Html.EditorFor(model => model.FormAccessCode, new { htmlAttributes = new { @class = "FormAccessCode", @style = "text-transform:uppercase", @placeholder = "Enter Code" } })
                         @Html.ValidationMessageFor(model => model.FormAccessCode, "", new { @class = "errorMsg" })
                     </div>
