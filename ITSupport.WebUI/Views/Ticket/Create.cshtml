@@ -55,6 +55,11 @@
                         <label class="form-label"><strong>Image</strong></label>
                         <input type="file" id="file" name="file" class="form-control" />
                     </div>
+                    <div class="inputBox">
+                        <label class="form-label"><strong>Description</strong></label>
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @placeholder = "Enter Name" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "errorMsg" })
+                    </div>
                 </div>
                 <div class="inputBox">
                     <button class="btnDiv">Create</button>

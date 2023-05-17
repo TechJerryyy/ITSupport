@@ -1,0 +1,192 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupport.Core.ViewModels
+@using ITSupport.WebUI.ActionFilters
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="section" style="margin-top:20px">
+        <div class="container">
+            <div class="topTitleHead pb20">
+
+            </div>
+            <div id="Ticket">
+                <div class="align-center align-between pb20">
+                    <h2>Tickets</h2>
+                    @if (ITSupport.WebUI.ActionFilters.CheckRights.Insert == true)
+                    {
+                        <div class="btnDiv">
+                            @Html.ActionLink("+ Add New Ticket", "Create")
+                        </div>
+                    }
+                </div>
+                <div>
+                    @(Html.Kendo().DropDownList()
+                        .Name("Status")
+                        .HtmlAttributes(new { style = "width:20%" })
+                        .OptionLabel("--Select Status--")
+                        .DataTextField("Name")
+                        .DataValueField("Name")
+                        .Filter("contains")
+                        .Height(310)
+                        .Events(e => e.Change("onChange"))
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                            read.Action("StatusFilter", "Ticket");
+                            });
+                        })
+                        .FooterTemplate("<small>Total number of <strong>#: instance.dataSource.total() #</strong> status found</small>")
+                    )
+                </div>
+                &nbsp;
+                <div class="tableDiv">
+                    @(Html.Kendo().Grid<TicketViewModel>().Name("TicketGrid").NoRecords("No records found!").Columns(columns=>
+                {
+                    columns.Bound(c=>c.Title).Title("Name").Width(50);
+                    columns.Bound(c =>c.Type).Width(40);
+                    columns.Bound(c=>c.Priority).Width(40);
+                    columns.Bound(c=>c.Status).Width(40);
+                    columns.Bound(c=>c.Assigned).Width(40);
+                    columns.Bound(c => c.Attachment).ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='ShowAttachments(this)' id='#=Id#' ><button class='btn-info' style='border-radius:20px'/>#=AttachmentCount#</a>#}# ").Width(25);
+                    if (CheckRights.Update || CheckRights.Delete)
+                    {
+                        columns.Template(c => c.Id).Title("Action")
+                        .ClientTemplate(
+                             "#if ('" + CheckRights.Update + "'=='True') {#"
+                             + " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#')'><img src='/Images/edit.svg'></a>"
+                             + "#}#"
+                             + "#if ('" + CheckRights.View + "'=='True') {#"
+                             + " <a href='" + Url.Action("Details", "Ticket") + "/#=Id#')'><img src='/Images/eye.svg'></a>"
+                             + "#}#"
+                             ).Width(30);
+                        if (CheckRights.Delete == true) {
+                            columns.Command(command =>
+                            {
+                                command.Custom("Delete").Click("ConfirmDelete").IconClass("k-i-delete").Text(" ");
+                            }).Width(20);
+                        }
+                    }
+                })
+.HtmlAttributes(new { style = "heigh: 550px" })
+.Groupable()
+.Search(s =>
+{
+    s.Field(o => o.Title, "contains");
+    s.Field(o => o.Type, "contains");
+    s.Field(o => o.Priority, "contains");
+    s.Field(o => o.Status, "eq");
+    s.Field(o => o.AssignTo, "contains");
+})
+.Scrollable()
+.Filterable()
+.Sortable()
+.ToolBar(t => t.Search())
+.Pageable()
+.Resizable(resize => resize.Columns(true))
+.DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetTicket", "Ticket"))
+.PageSize(5))
+)
+                </div>
+            </div>
+        </div>
+        <!-- END Section -->
+    </div>
+    <div class="modal fade" id="ticketAttachmentModal">
+        <div class="modal-dialog">
+            <div class="modal-content" id="confirm">
+                <div class="modal-header">
+                    <span class="modal-title">Attachments</span>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+                <div class="modal-body">
+                    <div id="AttachmentModalContent"></div>
+                </div>
+                <input type="hidden" id="hdnDeleteId" />
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ConfirmDeleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content" id="confirm">
+                <div class="modal-header">
+                    <span class="modal-title"><i class="glyphicon glyphicon-alert" style="font-size: 30px; color: red;"></i></span>
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                </div>
+                <div class="modal-body">
+                    <h4>Are You Sure? You Want to Delete this.</h4>
+                </div>
+                <input type="hidden" id="hdnDeleteId" />
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <a onclick="Deleteconfirmed(this)" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Styles.Render("~/Content/StyleSheet1.css")
+</body>
+</html>
+
+<script>
+    function onChange(e) {
+        var value = $("#Status").val();
+        grid = $("#TicketGrid").data("kendoGrid");
+        if (value) {
+            grid.dataSource.filter({ field: "Status", operator: "contains", value: value });
+        }
+        else {
+            grid.dataSource.filter({});
+        }
+    }
+    function ShowAttachments(e) {
+        var grid = $("#TicketGrid").data("kendoGrid");
+        var row = $(e).closest("tr");
+        var item = grid.dataItem(row);
+        var list = item.MultiAttachment;
+        if (list != null && list.length > 0) {
+            var htmlData = '';
+            for (let i = 0; i < list.length; i++) {
+                htmlData += "<a href='/Content/TicketImages/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>"
+            }
+        }
+        $("#AttachmentModalContent").html(htmlData);
+        $("#ticketAttachmentModal").modal('show')
+    }
+    function ConfirmDelete(e) {
+        var d = this.dataItem($(e.currentTarget).closest("tr"));
+        Id = d.Id;
+        $('#ConfirmDeleteModal').modal("show");
+        $('#hdnDeleteId').val(Id);
+    }
+    function Deleteconfirmed(Id) {
+        var Id = $('#hdnDeleteId').val();
+        $.ajax({
+            type: 'POST',
+            url: "/Ticket/Delete?Id=" + Id,
+            success: function () {
+                $('#ConfirmDeleteModal').modal("hide");
+                $.ajax({
+                    type: 'GET',
+                    url: "/Ticket/Index",
+                    success: function () {
+                        window.location.reload();
+                    }
+                })
+            }
+        })
+    }
+</script>

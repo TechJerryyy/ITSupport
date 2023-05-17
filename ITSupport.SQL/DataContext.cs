@@ -23,5 +23,6 @@ namespace ITSupport.SQL
         public DbSet<TicketStatusHistory> TicketStatusHistory { get; set; }
         public DbSet<TicketAttachment> TicketAttachment { get; set; }
         public DbSet<TicketComment> TicketComment { get; set; }
+        public DbSet<AuditLogs> AuditLogs { get; set; }
     }
 }

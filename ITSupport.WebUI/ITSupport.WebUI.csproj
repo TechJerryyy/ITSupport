@@ -425,6 +425,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ActionFilters\UserAuth.cs" />
+    <Compile Include="Helper\HelperByExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -441,9 +442,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\aakash-informatics-squareLogo-1615467716612.png" />
+    <Content Include="Images\delete-16.png" />
     <Content Include="Images\down-arrow.svg" />
+    <Content Include="Images\downloading-16.png" />
     <Content Include="Images\edit.svg" />
     <Content Include="Images\eye.svg" />
+    <Content Include="Images\cancel.png" />
+    <Content Include="Images\cancel1.png" />
+    <Content Include="Images\itstmlogo.png" />
+    <Content Include="Images\save.png" />
+    <Content Include="Images\istockphoto-1059303688-612x612.jpg" />
     <Content Include="Images\itstm.svg" />
     <Content Include="Images\key.svg" />
     <Content Include="Images\login-bg.jpg" />
@@ -5118,6 +5126,10 @@
     <Content Include="Views\Role\ManagePermission.cshtml" />
     <Content Include="Views\Account\Error404.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\Edit.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
+    <Content Include="Views\Ticket\CommentPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

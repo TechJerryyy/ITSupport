@@ -45,6 +45,7 @@
             </div>
         </div>
     }
-    <button id="backToList" onclick="history.back()">Back to List</button>
-    </body>
+    @*<button id="backToList" onclick="history.back()">Back to List</button>*@
+    @Html.ActionLink("Back to List", "Index", "Admin", null, new { @RoleManagement = @TempData["RoleManagement"] })
+</body>
 </html>

@@ -31,7 +31,9 @@
             <div class="inputBox">
                 <button type="submit" class="btnDiv">Create</button>
             </div>
-            <a href="/Admin/Index/">Back to List</a>
+            @*<a href="/Admin/Index/">Back to List</a>*@
+            @*<button id="backToList" onclick="javascript: history.go(-1)" value="(TempData["PageSelected"] = "RoleManagement")">Back to List</button>*@
+            @Html.ActionLink("Back to List", "Index", "Admin", null, new { @RoleManagement = @TempData["RoleManagement"] })
         </div>
     </div>
 }

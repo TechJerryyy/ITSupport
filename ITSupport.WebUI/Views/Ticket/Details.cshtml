@@ -1,0 +1,158 @@
+﻿@model ITSupport.Core.ViewModels.TicketViewModel
+    
+<html lang="en-us">
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            margin-top: 5px;
+        }
+
+        td, th {
+            border: 1px solid black;
+            text-align: left;
+            padding: 10px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-md-5">
+        <table style="margin-top:180px">
+            <tr><th colspan="2" style="font-size: 25px; color: white; text-align: center; background-color: #2C053F ">Ticket Details</th></tr>
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>@Html.DisplayFor(model => model.Title)</td>
+            </tr>
+            <tr>
+                <td><strong>Priority</strong></td>
+                <td>@Html.DisplayFor(model => model.Priority)</td>
+            </tr>
+            <tr>
+                <td><strong>Status</strong></td>
+                <td>@Html.DisplayFor(model => model.Status)</td>
+            </tr>
+            <tr>
+                <td><strong>Type</strong></td>
+                <td>@Html.DisplayFor(model => model.Type)</td>
+            </tr>
+            <tr>
+                <td><strong>Assigned To</strong></td>
+                <td>@Html.DisplayFor(model => model.Assigned)</td>
+            </tr>
+            <tr>
+                <td><strong>Created By</strong></td>
+                <td>@Html.DisplayFor(model => model.CreatedByName)</td>
+            </tr>
+            <tr>
+                <td><strong>Description</strong></td>
+                <td>@Html.DisplayFor(model => model.Description)</td>
+            </tr>
+        </table>
+        &nbsp;
+        <div class="btn-toolbar" style="width: max-content; background-color: #dddddd"><a class="glyphicon glyphicon-chevron-left" href="/Ticket/Index">Back to List&nbsp;</a></div>
+
+    </div>
+    <div class="col-md-1">&nbsp;</div>
+    <div class="col-md-6" style="margin-top:90px">
+        <h1>Comments</h1>
+        <div class="inputBox">
+            <input type="text" placeholder="Enter comment here" id="Comment" />
+        </div>
+        @Html.Hidden("TicketId", Model.Id)
+        <div><button type="submit" class="btn btn-success" onclick="commentTicket()">Post</button>&nbsp;<button class="btn btn-default" onclick="commentTicketCancel()">Cancel</button></div>
+        <div id="commentListTable">
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        getCommentList();
+    });
+    function commentTicket(e) {
+        var comment = $("#Comment").val();
+        var ticketId = $("#TicketId").val();
+        let commentTicket = {
+            Comment: comment,
+            TicketId: ticketId
+        }
+        var form = JSON.stringify(commentTicket);
+        $.ajax({
+            type: 'POST',
+            data: commentTicket,
+            dataType: 'json',
+            url: "/Ticket/CreateComment",
+            success: function () {
+                $("#Comment").val("");
+                getCommentList();
+            }
+        })
+    }
+    function getCommentList() {
+        $.ajax({
+            type: 'GET',
+            url: "/Ticket/GetComments/" + $('#TicketId').val(),
+            success: function () {
+
+            }
+        }).done(function (partialViewResult) {
+            $("#commentListTable").html(partialViewResult);
+        })
+    }
+    function commentTicketCancel() {
+        $("#Comment").val("");
+    }
+    function EditComment(Id) {
+        if ($("#hdnDeleteId").val() != '') {
+            var hdnId = $("#hdnDeleteId").val();
+            $(".inline-view_" + hdnId).show();
+            $(".inline-edit_" + hdnId).hide();
+            $(".inline-update_" + hdnId).hide();
+        }
+        $("#hdnDeleteId").val(Id);
+        $(".inline-view_" + Id).hide();
+        $(".inline-edit_" + Id).show();
+        $(".inline-update_" + Id).show();
+    }
+    function UpdateComment(Id) {
+        var editedComment = $('#editedComment_' + Id).val();
+        let editComment = {
+            Comment: editedComment
+        }
+        $.ajax({
+            type: 'POST',
+            data: editComment,
+            dataType: 'json',
+            url: "/Ticket/EditComment?Id=" + Id,
+            success: function () {
+                getCommentList();
+            }
+        });
+    }
+    function CancelEditComment(Id) {
+        $(".inline-edit_" + Id).hide();
+        $(".inline-update_" + Id).hide();
+        $(".inline-view_" + Id).show();
+    }
+    function DeleteComment(Id) {
+        $('#CommentDeleteModal').modal("show");
+        $('#hdnDeleteId').val(Id);
+    }
+    function DeleteConfirmed() {
+        var Id = $('#hdnDeleteId').val();
+        $.ajax({
+            type: 'POST',
+            url: "/Ticket/DeleteComment?Id=" + Id,
+            success: function () {
+                $('#CommentDeleteModal').modal("hide");
+                $('.modal-backdrop').remove();
+                getCommentList();
+            }
+        })
+    }
+</script>

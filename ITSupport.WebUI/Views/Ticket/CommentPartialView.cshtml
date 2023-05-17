@@ -1,0 +1,55 @@
+﻿@model List<ITSupport.Core.ViewModels.CommentViewModel>
+@using CustomHelper.CustomHelpers
+<table class="table" id="commentListTable" width="35%">
+    <tr><th colspan="2" style="font-size: 15px; color: white; text-align: center; background-color: #2C053F ">Comments</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="row">
+                    <div class="col-md-9">
+                        @Html.HiddenFor(ModelItem => item.Id, htmlAttributes: new { @id = "hdnDeleteId" })
+                        <div class="col-md-12">
+                            <strong style="color: #2C053F ">@Html.DisplayFor(modelItem => item.CreatedByName)</strong>&nbsp;<small>(@HelperByExt.Timeago(item.CreatedOn))</small>
+                        </div>
+                        <div class="col-md-12 inline-view_@item.Id">
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </div>
+                        <div class="col-md-12 inline-edit_@item.Id" style="display:none">
+                            @Html.TextBoxFor(modelItem => item.Comment, htmlAttributes: new { @id = "editedComment_" + item.Id })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        @if (item.CreatedBy.ToString() == Session["UserId"].ToString())
+                        {
+                            <small><button style="border:none; background:none" class="inline-view_@item.Id" onclick="EditComment('@item.Id')"><img style="width:19px; height:19px" src="~/Images/edit.svg" /></button></small>
+                            <small><button style="border:none; background:none; display:none" class="inline-edit_@item.Id" onclick="UpdateComment('@item.Id')"><img style="width:19px; height:19px" src="~/Images/save.png" /></button></small>
+                            <small><button style="border:none; background:none; display:none" class="inline-edit_@item.Id" onclick="CancelEditComment('@item.Id')"><img style="width:19px; height:19px" src="~/Images/cancel1.png" /></button></small>
+                            <small><button style="border:none; background:none" onclick="DeleteComment('@item.Id')"><img style="width:19px; height:19px" src="~/Images/trash.svg" /></button></small>
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>
+
+<div class="modal fade" id="CommentDeleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="confirm">
+            <div class="modal-header">
+                <span class="modal-title"><i class="glyphicon glyphicon-alert" style="font-size: 30px; color: red;"></i></span>
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+            </div>
+            <div class="modal-body">
+                <h4>Are You Sure? You Want to Delete this.</h4>
+            </div>
+            <input type="hidden" id="hdnDeleteId" />
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <a onclick="DeleteConfirmed(this)" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+@Styles.Render("~/Content/StyleSheet1.css")

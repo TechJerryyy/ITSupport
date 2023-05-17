@@ -49,13 +49,11 @@ namespace ITSupport.WebUI.Controllers
                 if (user != null)
                 {
                     Session["UserName"] = user.UserName.ToString();
-                    Session["UserId"] = user.Id.ToString();
+                    Session["UserId"] = user.Id;
                     Guid roleId = _userRoleManager.Collection().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
                     Session["RoleId"] = roleId; 
                     var permission = _permissionService.GetPermission(roleId).ToList();
                     Session["permissions"] = permission;
-                    //List<FormMstViewModel> forms = _formService.(roleid);
-                    //Session["forms"] = forms;
                     return RedirectToAction("Index", "Home");
                 }
                 else

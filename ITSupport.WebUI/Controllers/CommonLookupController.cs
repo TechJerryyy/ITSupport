@@ -27,7 +27,7 @@ namespace ITSupport.WebUI.Controllers
         }
         public ActionResult GetCommonLookups([DataSourceRequest] DataSourceRequest request)
         {
-            List<CommonLookup> CommonLookups = _commonLookupService.GetCommonLookups().Select(x => new CommonLookup() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue = x.ConfigValue, Description = x.Description, DisplayOrder = x.DisplayOrder, IsActive = x.IsActive, IsEdit = x.IsEdit }).ToList();
+            List<CommonLookup> CommonLookups = _commonLookupService.GetCommonLookups().ToList();
             return Json(CommonLookups.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Create(Guid? Id = null)
@@ -78,7 +78,7 @@ namespace ITSupport.WebUI.Controllers
         {
             CommonLookup commonLookup = _commonLookupService.GetCommonLookup(Id);
             TempData["PageSelected"] = "CommonLookupManagement";
-            _commonLookupService.Delete(commonLookup);            
+            _commonLookupService.Delete(commonLookup);  
             return PartialView("_CommonLookupPartial");
         }
     }
