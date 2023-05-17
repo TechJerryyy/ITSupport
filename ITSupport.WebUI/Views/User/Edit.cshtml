@@ -30,22 +30,22 @@
                 </div>
                 <div class="formSection">
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Name)
+                        <label class="form-label">Name<strong style="color:red;font-size:20px">*</strong></label>
                         @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @placeholder = "Enter Name" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
                     </div>
                     <div class="inputBox selectBox">
-                        @Html.LabelFor(model => model.RoleId)
+                        <label class="form-label">Role<strong style="color:red;font-size:20px">*</strong></label>
                         @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.DropDowns, "Id", "Name"), "SelectRole", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "errorMsg" })
                     </div>
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Email)
+                        <label class="form-label">Email<strong style="color:red;font-size:20px">*</strong></label>
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @placeholder = "Enter Email" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errorMsg" })
                     </div>
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.UserName)
+                        <label class="form-label">UserName<strong style="color:red;font-size:20px">*</strong></label>
                         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @placeholder = "Enter UserName" } })
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "errorMsg" })
                     </div>
@@ -62,7 +62,7 @@
                         <p>&nbsp;</p>
                     </div>
                     <div class="inputBox">
-                        @Html.LabelFor(model => model.Gender)
+                        <label class="form-label">Gender<strong style="color:red;font-size:20px">*</strong></label>
                         <div class="radioBtnSection">
                             <div class="radioBtnDiv">
                                 Female @Html.RadioButtonFor(model => model.Gender, "Female")

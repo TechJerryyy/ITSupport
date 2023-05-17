@@ -12,6 +12,7 @@ namespace ITSupport.WebUI.ActionFilters
         public static bool CheckAccess(string formAccessCode, string action)
         {
             Guid currentRoleId = (Guid)HttpContext.Current.Session["RoleId"];
+            if(currentRoleId!=null)
             {
                 using (DataContext dbContext = new DataContext())
                 {
@@ -60,7 +61,11 @@ namespace ITSupport.WebUI.ActionFilters
                         return false;
                     }
                 }
-            }           
+            }
+            else
+            {
+                return false;
+            }
         }
         public class PermissionOrder
         {

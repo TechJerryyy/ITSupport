@@ -116,10 +116,8 @@
             url = "/CommonLookup/Create?Id=" + Id;
         }
         $("#commonLookupform").load(url, function () {
-            debugger;
             $("#CLModal").modal("show");
         })
-
     }
     function ConfirmDelete(e) {
         var d = this.dataItem($(e.currentTarget).closest("tr"));

@@ -13,19 +13,19 @@
     <form id="Lookupform">
         <div id="CommonLookupError"></div>
         <div>
-            <label>Config Name:</label>
+            <label class="form-label">Config Name<strong style="color:red;font-size:20px">*</strong>:</label>
             @Html.TextBoxFor(model => model.ConfigName, new { @class = "form-control", @placeholder = "Enter Config Name", @id = "ConfigName", onkeyup = "ValidationMessage()" })
             <span id="configNameError" style="color:red"></span>
         </div>
         <br />
         <div>
-            <label>Config Key:</label>
+            <label class="form-label">Config Key<strong style="color:red;font-size:20px">*</strong>:</label>
             @Html.TextBoxFor(model => model.ConfigKey, new { @class = "form-control", @placeholder = "Enter Config Key", @id = "ConfigKey", onkeyup = "ValidationMessage()" })
             <span id="configKeyError" style="color:red"></span>
         </div>
         <br />
         <div>
-            <label>Config Value:</label>
+            <label class="form-label">Config Value<strong style="color:red;font-size:20px">*</strong>:</label>
             @Html.TextBoxFor(model => model.ConfigValue, new { @class = "form-control", @placeholder = "Enter Config Value", @id = "ConfigValue", onkeyup = "ValidationMessage()" })
             <span id="configValueError" style="color:red"></span>
         </div>
@@ -73,7 +73,6 @@
                 url: url,
                 data: form,
                 success: function (data) {
-                    debugger;
                     if (data == "False") {
                         alert("Common Lookup Already Exists");
                     }

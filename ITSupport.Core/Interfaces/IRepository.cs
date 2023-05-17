@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITSupport.Core.Contract
+namespace ITSupport.Core.Interfaces
 {
     public interface IRepository<T> where T : BaseEntity
     {

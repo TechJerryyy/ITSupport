@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace ITSupport.SQL.Repository
 {
-    public class SQLRepository<T> : Core.Contract.IRepository<T> where T : BaseEntity
+    public class SQLRepository<T> : Core.Interfaces.IRepository<T> where T : BaseEntity
     {
         internal DataContext context;
         internal DbSet<T> dbSet;
+        internal DbSet<CommonLookup> DbSet;
         public SQLRepository(DataContext context)
         {
             this.context = context;
             this.dbSet = context.Set<T>();
+            this.DbSet = context.Set<CommonLookup>();
         }
         public IQueryable<T> Collection()
         {

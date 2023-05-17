@@ -18,12 +18,12 @@
             </div>
             <div class="formSection">
                 <div class="inputBox">
-                    @Html.LabelFor(model => model.Name)
+                    <label class="form-label">Name<strong style="color:red;font-size:20px">*</strong></label>
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @placeholder = "Enter Name" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
                 </div>
                 <div class="inputBox">
-                    @Html.LabelFor(model => model.Code)
+                    <label class="form-label">Code<strong style="color:red;font-size:20px">*</strong></label>
                     @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase", @placeholder = "Enter Code" } })
                     @Html.ValidationMessageFor(model => model.Code, "", new { @class = "errorMsg" })
                 </div>
@@ -31,7 +31,9 @@
             <div class="inputBox">
                 <button type="submit" class="btnDiv">Create</button>
             </div>
-            <a href="/Admin/Index/">Back to List</a>
+            @*<a href="/Admin/Index/">Back to List</a>*@
+            @*<button id="backToList" onclick="javascript: history.go(-1)" value="(TempData["PageSelected"] = "RoleManagement")">Back to List</button>*@
+            @Html.ActionLink("Back to List", "Index", "Admin", null, new { @RoleManagement = @TempData["RoleManagement"] })
         </div>
     </div>
 }

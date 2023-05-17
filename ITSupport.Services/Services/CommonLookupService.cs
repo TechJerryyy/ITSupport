@@ -1,4 +1,4 @@
-﻿using ITSupport.Core.Contract;
+﻿using ITSupport.Core.Interfaces;
 using ITSupport.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -76,6 +76,10 @@ namespace ITSupport.Services.Services
         public List<CommonLookup> GetCommonLookups()
         {
             return _commonLookupRepository.Collection().Where(x => !x.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
+        }
+        public List<CommonLookup> GetCommonLookupsByName(string configName)
+        {
+            return _commonLookupRepository.Collection().Where(x => x.ConfigName == configName && !x.IsDeleted).ToList();
         }
     }
 }

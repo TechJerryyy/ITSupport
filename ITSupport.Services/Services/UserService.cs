@@ -1,4 +1,4 @@
-﻿using ITSupport.Core.Contract;
+﻿using ITSupport.Core.Interfaces;
 using ITSupport.Core.Models;
 using ITSupport.Core.ViewModels;
 using System;

@@ -1,4 +1,5 @@
-﻿using ITSupport.Core.ViewModels;
+﻿using ITSupport.Core.Models;
+using ITSupport.Core.ViewModels;
 using ITSupport.Services.Services;
 using ITSupport.WebUI.ActionFilters;
 using Kendo.Mvc.Extensions;
@@ -29,7 +30,8 @@ namespace ITSupport.WebUI.Controllers
         }
         public ActionResult GetAllUsers([DataSourceRequest] DataSourceRequest request)
         {
-            List<UserViewModel> user = _userService.GetUsers().Select(x => new UserViewModel() { Id = x.Id, Name = x.Name, UserName = x.UserName, Email = x.Email, Password = x.Password, Gender = x.Gender, MobileNumber = x.MobileNumber, RoleId = x.RoleId, RoleName = x.RoleName }).ToList();
+            List<UserViewModel> user = _userService.GetUsers().ToList();
+            TempData["PageSelected"] = "UserManagement";
             return Json(user.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
         public ActionResult Create()
@@ -45,6 +47,7 @@ namespace ITSupport.WebUI.Controllers
         public ActionResult Create(UserViewModel model)
         {
             var user = _userService.CreateUser(model);
+            TempData["PageSelected"] = "UserManagement";
             if (user != null)
             {
                 ViewBag.message = user;
@@ -53,7 +56,6 @@ namespace ITSupport.WebUI.Controllers
             }
             else
             {
-                TempData["PageSelected"] = "UserManagement";
                 return RedirectToAction("Index", "Admin");
             }
         }
@@ -61,12 +63,14 @@ namespace ITSupport.WebUI.Controllers
         {
             UserViewModel user = _userService.GetUser(Id);
             user.DropDowns = _roleService.GetRoleList().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+            TempData["PageSelected"] = "UserManagement";
             return View(user);
         }
         [HttpPost]
         public ActionResult Edit(UserViewModel model)
         {
             var user = _userService.EditUser(model);
+            TempData["PageSelected"] = "UserManagement";
             if (user != null)
             {
                 ViewBag.message = user;
@@ -75,13 +79,13 @@ namespace ITSupport.WebUI.Controllers
             }
             else
             {
-                TempData["PageSelected"] = "UserManagement";
                 return RedirectToAction("Index", "Admin");
             }
         }
         public ActionResult Delete(Guid Id)
         {
             UserViewModel user = _userService.GetUser(Id);
+            TempData["PageSelected"] = "UserManagement";
             if (user == null)
             {
                 return HttpNotFound();

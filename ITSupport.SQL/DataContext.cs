@@ -19,5 +19,10 @@ namespace ITSupport.SQL
         public DbSet<CommonLookup> CommonLookups { get; set; }
         public DbSet<FormMst> Forms { get; set; }
         public DbSet<Permission> Permissions { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
+        public DbSet<TicketStatusHistory> TicketStatusHistory { get; set; }
+        public DbSet<TicketAttachment> TicketAttachment { get; set; }
+        public DbSet<TicketComment> TicketComment { get; set; }
+        public DbSet<AuditLogs> AuditLogs { get; set; }
     }
 }

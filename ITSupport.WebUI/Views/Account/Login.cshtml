@@ -23,31 +23,38 @@
         <div class="loginDiv">
             <div class="loginBox">
                 <div class="loginLogo">
-                    <img src="~/Images/itstm.svg" alt="ITSTM Logo">
+                    <img src="~/Images/itstmlogo.png" alt="ITSTM Logo">
                 </div>
                 @Html.ValidationSummary(true, "", new { @style = "color: red" })
-                <div class="formSection">
-                    <div class="inputBox">
-                        @Html.LabelFor(model => model.Email)
+            <div class="formSection">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label><strong>Email</strong></label>
+                    </div>
+                    <div class="inputBox col-md-10">
                         @Html.EditorFor(model => model.Email)
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errorMsg" })
                     </div>
-                    <div class="inputBox">
-
-                        @Html.LabelFor(model => model.Password)
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label><strong>Password</strong></label>
+                    </div>
+                    <div class="inputBox col-md-10">
                         @Html.EditorFor(model => model.Password)
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errorMsg" })
                     </div>
-                    <!-- <div class="inputBox forgotPsw">
-                        <a href="#">Forgot Password</a>
-                    </div> -->
-                    <div class="inputBox btnInput">
-                        <input type="submit" value="Login" class="loginBtn" />
-                    </div>
                 </div>
+                        <!-- <div class="inputBox forgotPsw">
+                <a href="#">Forgot Password</a>
+            </div> -->
+                        <div class="inputBox btnInput">
+                            <input type="submit" value="Login" class="loginBtn" />
+                        </div>
+                    </div>
 
+                </div>
             </div>
-        </div>
     </body>
 </html>
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITSupport.Core.Contract
+namespace ITSupport.Core.Interfaces
 {
     public interface ICommonLookupService
     {
@@ -14,5 +14,6 @@ namespace ITSupport.Core.Contract
         CommonLookup Create(CommonLookup model);
         CommonLookup Edit(CommonLookup model);
         void Delete(CommonLookup model);
+        List<CommonLookup> GetCommonLookupsByName(string configName);
     }
 }
