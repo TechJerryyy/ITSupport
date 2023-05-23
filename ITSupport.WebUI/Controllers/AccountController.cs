@@ -2,6 +2,7 @@
 using ITSupport.Core.Models;
 using ITSupport.Core.ViewModels;
 using ITSupport.Services.Services;
+using ITSupport.WebUI.ActionFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using System.Web.Security;
 
 namespace ITSupport.WebUI.Controllers
 {
+    [AuditLog()]
     public class AccountController : Controller
     {
         private readonly ILoginService _loginService;
@@ -67,15 +69,16 @@ namespace ITSupport.WebUI.Controllers
                 // To enable password failures to trigger account lockout, change to shouldLockout: true
             }
         }
+        
         public ActionResult Logout()
         {
             Session.Abandon();
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
-        public ActionResult Error404()
-        {
-            return View();
-        }
+        //public ActionResult Error404()
+        //{
+        //    return View();
+        //}
     }
 }

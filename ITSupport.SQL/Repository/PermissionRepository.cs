@@ -77,6 +77,7 @@ namespace ITSupport.SQL.Repository
                                           NavigateURL = f.NavigateURL,
                                           ParentFormId= f.ParentFormID,
                                           RoleId = RoleId,
+                                          IsActive = f.IsActive,
                                           View = fPer != null ? fPer.View : false,
                                           Insert = fPer != null ? fPer.Insert : false,
                                           Update = fPer != null ? fPer.Update : false,

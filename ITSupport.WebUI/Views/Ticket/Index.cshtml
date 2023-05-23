@@ -20,7 +20,7 @@
             <div id="Ticket">
                 <div class="align-center align-between pb20">
                     <h2>Tickets</h2>
-                    @if (ITSupport.WebUI.ActionFilters.CheckRights.Insert == true)
+                    @if (CheckRights.Insert == true)
                     {
                         <div class="btnDiv">
                             @Html.ActionLink("+ Add New Ticket", "Create")

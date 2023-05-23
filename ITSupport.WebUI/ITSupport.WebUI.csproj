@@ -406,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionFilters\AccessCode.cs" />
+    <Compile Include="ActionFilters\AuditLog.cs" />
     <Compile Include="ActionFilters\CheckRights.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -414,6 +415,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuditLogController.cs" />
     <Compile Include="Controllers\CommonLookupController.cs" />
     <Compile Include="Controllers\FormMstController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -449,6 +451,7 @@
     <Content Include="Images\eye.svg" />
     <Content Include="Images\cancel.png" />
     <Content Include="Images\cancel1.png" />
+    <Content Include="Images\image_2023_05_17T06_56_39_038Z.png" />
     <Content Include="Images\itstmlogo.png" />
     <Content Include="Images\save.png" />
     <Content Include="Images\istockphoto-1059303688-612x612.jpg" />
@@ -5130,6 +5133,9 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Ticket\Details.cshtml" />
     <Content Include="Views\Ticket\CommentPartialView.cshtml" />
+    <Content Include="Views\AuditLog\Index.cshtml" />
+    <Content Include="Views\AuditLog\Details.cshtml" />
+    <Content Include="Views\AuditLog\ErrorLog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

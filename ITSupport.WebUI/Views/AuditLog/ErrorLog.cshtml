@@ -1,0 +1,49 @@
+﻿@using Kendo.Mvc.UI
+@using ITSupport.Core.ViewModels
+@{
+    ViewBag.Title = "ErrorLog";
+}
+<div id="ActivityLog">
+    <div class="align-center align-between pb20">
+        <h2>Error Log</h2>
+    </div>
+    <div class="tableDiv">
+        @(Html.Kendo().Grid<AuditLogViewModel>
+    ().Name("AuditLogGrid").NoRecords("No records found!").Columns(columns=>
+    {
+        columns.Bound(c=>c.UserName).Width(100);
+        columns.Bound(c=>c.Url).Width(100);
+        columns.Bound(c=>c.HttpMethod).Width(100);
+        columns.Bound(c=>c.ExecutionDuration).Width(100);
+        columns.Bound(c=>c.HttpStatusCode).Width(100);
+        //columns.Bound(c => c.Exception).Width(100);
+        columns.Bound(c=>c.BrowserInfo).Width(100);
+        columns.Bound(c=>c.Comments).Width(100);
+        columns.Template(c => c.Id).Title("Action")
+        .ClientTemplate(" <a href='" + Url.Action("Details", "AuditLog") + "/#=Id#' )'><img src='/Images/eye.svg'></a>").Width(40);
+    })
+    .HtmlAttributes(new { style = "heigh: 550px" })
+    .Groupable()
+    .Search(s =>
+    {
+        s.Field(o => o.UserName, "contains");
+        s.Field(o => o.HttpMethod, "contains");
+        s.Field(o => o.Url, "contains");
+        s.Field(o => o.HttpStatusCode, "contains");
+    })
+    .Scrollable()
+    .Filterable()
+    .Sortable()
+    .ToolBar(toolbar =>
+    {
+        toolbar.Search();
+        toolbar.Pdf();
+    })
+    .Pdf(pdf => pdf.ProxyURL(Url.Action("Excel_Export_Save", "AuditLogGrid")))
+    .Pageable()
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetErrorLogs", "AuditLog"))
+    .PageSize(10))
+    )
+</div>
+</div>

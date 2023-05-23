@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace ITSupport.WebUI.Controllers
 {
+    [AuditLog()]
     [UserAuth]
     public class UserController : Controller
     {

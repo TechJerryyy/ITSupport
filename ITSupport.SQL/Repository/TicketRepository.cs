@@ -70,7 +70,8 @@ namespace ITSupport.SQL.Repository
                               Type = ct.ConfigKey,
                               Priority = cp.ConfigKey,
                               Status = cs.ConfigKey,
-                              Title = t.Title
+                              Title = t.Title,
+                              IsActive = t.IsActive,
                           });
             var result = (from t in ticket
                           join at in context.TicketAttachment.Where(x => !x.IsDeleted) on t.Id equals at.TicketId into fdata
@@ -89,6 +90,7 @@ namespace ITSupport.SQL.Repository
                               Priority = g.Key.Priority,
                               Status = g.Key.Status,
                               Title = g.Key.Title,
+                              IsActive = g.Key.IsActive,
                               AttachmentCount = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.Count() : 0,
                               MultiAttachment = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.ToList() : null
                           }).ToList();
@@ -119,6 +121,7 @@ namespace ITSupport.SQL.Repository
                               CreatedOn = t.CreatedOn,
                               CreatedBy = ur.Id,
                               CreatedByName = ur.UserName,
+                              IsActive = t.IsActive,
                           }).AsEnumerable();
 
             var data = (from t in ticket
@@ -141,6 +144,7 @@ namespace ITSupport.SQL.Repository
                             CreatedOn = g.Key.CreatedOn,
                             CreatedBy = g.Key.CreatedBy,
                             CreatedByName = g.Key.CreatedByName,
+                            IsActive = g.Key.IsActive,
                             AttachmentCount = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.Count() : 0,
                             MultiAttachment = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.ToList() : null
                         }).FirstOrDefault();

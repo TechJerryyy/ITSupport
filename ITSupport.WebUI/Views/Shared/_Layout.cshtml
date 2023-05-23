@@ -30,20 +30,20 @@
                                 @if (Session["UserId"] != null)
                                 {
                                     var list = Session["Permissions"] as List<PermissionViewModel>;
-                                    foreach (var item in list.Where(x => x.View == true && x.ParentFormId == null))
+                                    foreach (var item in list.Where(x => x.View == true && x.ParentFormId == null && x.IsActive == true))
                                     {
                                         <div class="userInfo">
                                             <div class="align-center">
                                                 <div class="userName align-center">
                                                     @if (list.Where(x => x.ParentFormId == item.FormId).Count() > 0)
                                                     {
-                                                        if (list.Where(x => x.ParentFormId == item.FormId && x.View == true).Count() > 0)
+                                                        if (list.Where(x => x.ParentFormId == item.FormId && x.View == true && x.IsActive == true).Count() > 0)
                                                         {
                                                             <span><a href="@item.NavigateURL" style="color: #fffdfc; font-size:20px;"> @item.FormName </a></span>
                                                             <i> <img src="~/Images/down-arrow.svg" alt="Dropdown Icon"> </i>
                                                             <div class="userInfoDiv">
                                                                 <div class="userInfoBox">
-                                                                    @foreach (var child in list.Where(x => x.ParentFormId == item.FormId && x.View == true))
+                                                                    @foreach (var child in list.Where(x => x.ParentFormId == item.FormId && x.View == true && x.IsActive == true))
                                                                     {
                                                                         <a href="@child.NavigateURL">@child.FormName</a>
                                                                     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ITSupport.Core.ViewModels
 {
-    public class PermissionViewModel 
+    public class PermissionViewModel : BaseEntity
     {
         [Required]
         public Guid FormId { get; set; }
