@@ -1,6 +1,6 @@
 ﻿ @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
  @import url('https://fonts.googleapis.com/css?family=Catamaran:400,800');
-  
+
 .error-container {
     text-align: center;
     font-size: 180px;
@@ -11,9 +11,10 @@
 
 .error-container > span {
     display: inline-block;
-    line-height: 0.7;
+    line-height: 0.1;
     position: relative;
     color: #FFB485;
+    font-size: 120px;
 }
 
     .error-container > span > span {
@@ -42,7 +43,7 @@
         .error-container > span:nth-of-type(3) > span {
             transform-origin: 100% 100% 0px;
             transform: rotate(0deg);
-            animation: rotatedrop 8s infinite;
+            animation: rotatedrop 5s infinite;
         }
 
 @keyframes easyoutelastic {
@@ -108,10 +109,6 @@
         transform: rotateX(0);
     }
 }
-
-
-
-
 
 /* demo stuff */
 * {

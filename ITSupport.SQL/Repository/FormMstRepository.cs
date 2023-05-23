@@ -33,7 +33,6 @@ namespace ITSupport.SQL.Repository
         public void Insert(FormMst form)
         {
             dbSet.Add(form);
-
         }
         public void Delete(Guid Id)
         {
@@ -83,7 +82,6 @@ namespace ITSupport.SQL.Repository
                              FormAccessCode = f.FormAccessCode.ToUpper().Trim(),
                              DisplayIndex = f.DisplayIndex,
                              IsActive = f.IsActive,
-
                          }).Distinct()
                          .ToList();
             return forms;

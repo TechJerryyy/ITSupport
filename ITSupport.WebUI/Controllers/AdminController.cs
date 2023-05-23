@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ITSupport.WebUI.Controllers
 {
+    [AuditLog()]
     [UserAuth]
     [PermissionActionFilter("ADMIN", CheckRights.PermissionOrder.IsView)]
     public class AdminController : Controller

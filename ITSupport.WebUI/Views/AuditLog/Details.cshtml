@@ -1,0 +1,75 @@
+﻿@model ITSupport.Core.ViewModels.AuditLogViewModel
+
+<html lang="en-us">
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+        }
+
+        td, th {
+            border: 1px solid black;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-lg-8">
+        <table style="margin-top:80px">
+            <tr><th colspan="2" style="font-size: 25px; color: white; text-align: center; background-color: #2C053F ">Activity Details</th></tr>
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>@Html.DisplayFor(model => model.UserName)</td>
+            </tr>
+            <tr>
+                <td><strong>Url</strong></td>
+                <td>@Html.DisplayFor(model => model.Url)</td>
+            </tr>
+            <tr>
+                <td><strong>ExecutionDuration</strong></td>
+                <td>@Html.DisplayFor(model => model.ExecutionDuration)</td>
+            </tr>
+            <tr>
+                <td><strong>ExecutionTime</strong></td>
+                <td>@Html.DisplayFor(model => model.ExecutionTime)</td>
+            </tr>
+            <tr>
+                <td><strong>ClientIpAddress</strong></td>
+                <td>@Html.DisplayFor(model => model.ClientIpAddress)</td>
+            </tr>
+            <tr>
+                <td><strong>BrowserInfo</strong></td>
+                <td>@Html.DisplayFor(model => model.BrowserInfo)</td>
+            </tr>
+            <tr>
+                <td><strong>HttpMethod</strong></td>
+                <td>@Html.DisplayFor(model => model.HttpMethod)</td>
+            </tr>
+            @if (Model.Exception != null)
+            {
+                <tr>
+                    <td><strong>Exception</strong></td>
+                    <td style="color:rgb(195 12 12 / 0.91)">@Html.DisplayFor(model => model.Exception)</td>
+                </tr>
+            }
+            <tr>
+                <td><strong>HttpStatusCode</strong></td>
+                <td>@Html.DisplayFor(model => model.HttpStatusCode)</td>
+            </tr>
+            <tr>
+                <td><strong>Comments</strong></td>
+                <td>@Html.DisplayFor(model => model.Comments)</td>
+            </tr>
+            <tr>
+                <td><strong>Parameters</strong></td>
+                <td>@Html.DisplayFor(model => model.Parameters)</td>
+            </tr>
+        </table>
+        &nbsp;
+        <div class="btn-toolbar" style="width: max-content; background-color: #dddddd"><a class="glyphicon glyphicon-chevron-left" href="/AuditLog/ErrorLog">Back to List&nbsp;</a></div>
+    </div>
+</body>
+</html>

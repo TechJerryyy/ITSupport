@@ -33,6 +33,7 @@ namespace ITSupport.Services.Services
                 PriorityId = model.PriorityId,
                 StatusId = model.StatusId,
                 Id = model.Id,
+                IsActive = model.IsActive,
                 CreatedOn = DateTime.Now,
                 CreatedBy = model.CreatedBy,
             };
@@ -63,6 +64,7 @@ namespace ITSupport.Services.Services
             ticket.PriorityId = model.PriorityId;
             ticket.StatusId = model.StatusId;
             ticket.Id = model.Id;
+            ticket.IsActive = model.IsActive;
             ticket.UpdatedOn = model.UpdatedOn;
             _ticketRepository.Update(ticket);
             _ticketRepository.Commit();

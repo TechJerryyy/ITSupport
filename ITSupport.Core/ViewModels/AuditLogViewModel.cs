@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITSupport.Core.Models
+namespace ITSupport.Core.ViewModels
 {
-    public class AuditLogs
+    public class AuditLogViewModel
     {
         public Guid Id { get; set; }
         public Guid? UserId { get; set; }
+        public string UserName { get; set; }
         public DateTime ExecutionTime { get; set; }
         public long ExecutionDuration { get; set; }
         public string ClientIpAddress { get; set; }
@@ -21,10 +22,5 @@ namespace ITSupport.Core.Models
         public string Comments { get; set; }
         public string Parameters { get; set; }
         public string Headers { get; set; }
-
-        public AuditLogs()
-        {
-            Id = Guid.NewGuid();
-        }
     }
 }

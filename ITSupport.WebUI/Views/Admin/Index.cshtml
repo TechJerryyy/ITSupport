@@ -20,8 +20,8 @@
                     <li> <a id="UserManagementTab" class="tablinks active" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
                     <li> <a id="RoleManagementTab" class="tablinks" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
                     <li> <a id="CommonLookupManagementTab" class="tablinks" onclick="openSystems(event, 'CommonLookupManagement')"> Common Lookup </a> </li>
-                    <li> <a id="ActivityManagementTab" class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
-                    <li> <a id="ErrorlogsTab" class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
+                    @*<li> <a id="ActivityManagementTab" class="tablinks" onclick="openSystems(event, 'Activitylogs')">Activity logs </a> </li>
+                    <li> <a id="ErrorlogsTab" class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>*@
                 </ul>
             </div>
             <div class="tabContentDetails">
@@ -125,7 +125,7 @@
         $('#ConfirmDeleteModal').modal("show");
         $('#hdnDeleteId').val(Id);
     }
-    function Deleteconfirmed(Id) {
+    function Deleteconfirmed() {
         var Id = $('#hdnDeleteId').val();
         $.ajax({
             type: 'POST',
