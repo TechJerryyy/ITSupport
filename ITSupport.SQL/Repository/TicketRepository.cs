@@ -5,8 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace ITSupport.SQL.Repository
 {
@@ -52,49 +51,107 @@ namespace ITSupport.SQL.Repository
         }
         public List<TicketViewModel> GetTicket()
         {
-            var ticket = (from t in context.Ticket.Where(x => !x.IsDeleted).AsEnumerable()
-                          join u in context.Users on t.AssignTo equals u.Id
-                          join ct in context.CommonLookups on t.TypeId equals ct.Id
-                          join cp in context.CommonLookups on t.PriorityId equals cp.Id
-                          join cs in context.CommonLookups on t.StatusId equals cs.Id
-                          where !t.IsDeleted
-                          select new TicketViewModel
-                          {
-                              Id = t.Id,
-                              AssignTo = u.Id,
-                              TypeId = ct.Id,
-                              PriorityId = cp.Id,
-                              StatusId = cs.Id,
-                              Description = t.Description,
-                              Assigned = u.Name,
-                              Type = ct.ConfigKey,
-                              Priority = cp.ConfigKey,
-                              Status = cs.ConfigKey,
-                              Title = t.Title,
-                              IsActive = t.IsActive,
-                          });
-            var result = (from t in ticket
-                          join at in context.TicketAttachment.Where(x => !x.IsDeleted) on t.Id equals at.TicketId into fdata
-                          from tf in fdata.DefaultIfEmpty()
-                          group tf by t into g
-                          select new TicketViewModel
-                          {
-                              Id = g.Key.Id,
-                              AssignTo = g.Key.AssignTo,
-                              TypeId = g.Key.TypeId,
-                              PriorityId = g.Key.PriorityId,
-                              StatusId = g.Key.StatusId,
-                              Description = g.Key.Description,
-                              Assigned = g.Key.Assigned,
-                              Type = g.Key.Type,
-                              Priority = g.Key.Priority,
-                              Status = g.Key.Status,
-                              Title = g.Key.Title,
-                              IsActive = g.Key.IsActive,
-                              AttachmentCount = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.Count() : 0,
-                              MultiAttachment = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.ToList() : null
-                          }).ToList();
-            return result;
+            if (HttpContext.Current.Session["RoleCode"].ToString() == "SA" || HttpContext.Current.Session["RoleCode"].ToString() == "ADM")
+            {
+                var ticket = (from t in context.Ticket.Where(x => !x.IsDeleted).AsEnumerable()
+                              join u in context.Users on t.AssignTo equals u.Id
+                              join ct in context.CommonLookups on t.TypeId equals ct.Id
+                              join cp in context.CommonLookups on t.PriorityId equals cp.Id
+                              join cs in context.CommonLookups on t.StatusId equals cs.Id
+                              where !t.IsDeleted
+                              select new TicketViewModel
+                              {
+                                  Id = t.Id,
+                                  AssignTo = u.Id,
+                                  TypeId = ct.Id,
+                                  PriorityId = cp.Id,
+                                  StatusId = cs.Id,
+                                  Description = t.Description,
+                                  Assigned = u.Name,
+                                  Type = ct.ConfigKey,
+                                  Priority = cp.ConfigKey,
+                                  Status = cs.ConfigKey,
+                                  Title = t.Title,
+                                  IsActive = t.IsActive,
+                                  CreatedBy = t.CreatedBy,
+                                  CreatedByName = u.Name,
+                              });
+                var result = (from t in ticket
+                              join at in context.TicketAttachment.Where(x => !x.IsDeleted) on t.Id equals at.TicketId into fdata
+                              from tf in fdata.DefaultIfEmpty()
+                              group tf by t into g
+                              select new TicketViewModel
+                              {
+                                  Id = g.Key.Id,
+                                  AssignTo = g.Key.AssignTo,
+                                  TypeId = g.Key.TypeId,
+                                  PriorityId = g.Key.PriorityId,
+                                  StatusId = g.Key.StatusId,
+                                  Description = g.Key.Description,
+                                  Assigned = g.Key.Assigned,
+                                  Type = g.Key.Type,
+                                  Priority = g.Key.Priority,
+                                  Status = g.Key.Status,
+                                  Title = g.Key.Title,
+                                  IsActive = g.Key.IsActive,
+                                  CreatedBy = g.Key.CreatedBy,
+                                  CreatedByName = g.Key.CreatedByName,
+                                  AttachmentCount = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.Count() : 0,
+                                  MultiAttachment = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.ToList() : null
+                              }).ToList();
+                return result;
+            }
+            else
+            {
+                var ticket = (from t in context.Ticket.Where(x => !x.IsDeleted).AsEnumerable()
+                              join u in context.Users on t.AssignTo equals u.Id
+                              join ct in context.CommonLookups on t.TypeId equals ct.Id
+                              join cp in context.CommonLookups on t.PriorityId equals cp.Id
+                              join cs in context.CommonLookups on t.StatusId equals cs.Id
+                              where !t.IsDeleted && t.CreatedBy.ToString() == HttpContext.Current.Session["UserId"].ToString()
+                              select new TicketViewModel
+                              {
+                                  Id = t.Id,
+                                  AssignTo = u.Id,
+                                  TypeId = ct.Id,
+                                  PriorityId = cp.Id,
+                                  StatusId = cs.Id,
+                                  Description = t.Description,
+                                  Assigned = u.Name,
+                                  Type = ct.ConfigKey,
+                                  Priority = cp.ConfigKey,
+                                  Status = cs.ConfigKey,
+                                  Title = t.Title,
+                                  IsActive = t.IsActive,
+                                  CreatedBy = t.CreatedBy,
+                                  CreatedByName = u.Name,
+                              });
+                var result = (from t in ticket
+                              join at in context.TicketAttachment.Where(x => !x.IsDeleted) on t.Id equals at.TicketId into fdata
+                              from tf in fdata.DefaultIfEmpty()
+                              group tf by t into g
+                              select new TicketViewModel
+                              {
+                                  Id = g.Key.Id,
+                                  AssignTo = g.Key.AssignTo,
+                                  TypeId = g.Key.TypeId,
+                                  PriorityId = g.Key.PriorityId,
+                                  StatusId = g.Key.StatusId,
+                                  Description = g.Key.Description,
+                                  Assigned = g.Key.Assigned,
+                                  Type = g.Key.Type,
+                                  Priority = g.Key.Priority,
+                                  Status = g.Key.Status,
+                                  Title = g.Key.Title,
+                                  IsActive = g.Key.IsActive,
+                                  CreatedBy = g.Key.CreatedBy,
+                                  CreatedByName = g.Key.CreatedByName,
+                                  AttachmentCount = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.Count() : 0,
+                                  MultiAttachment = g.Where(x => x != null && x.FileName != null && !x.IsDeleted).Any() ? g.ToList() : null
+                              }).ToList();
+                return result;
+            }
+
         }
         public TicketViewModel GetTicketById(Guid Id)
         {
@@ -184,6 +241,24 @@ namespace ITSupport.SQL.Repository
                                 CreatedByName = u.UserName,
                             }).FirstOrDefault();
             return comments;
+        }
+        public List<TicketStatusHistoryViewModel> GetStatusHistoryById(Guid Id)
+        {
+            var statusChanges = (from s in context.TicketStatusHistory
+                            join t in context.Ticket on s.TicketId equals t.Id
+                            join u in context.Users on s.CreatedBy equals u.Id
+                            orderby s.CreatedOn ascending
+                            where !s.IsDeleted && s.TicketId == Id
+                            select new TicketStatusHistoryViewModel
+                            {
+                                Id = s.Id,
+                                OldStatus = s.OldStatus,
+                                NewStatus = s.NewStatus,
+                                CreatedOn = s.CreatedOn,
+                                CreatedBy = u.Id,
+                                StatusChangedByName = u.UserName,
+                            }).ToList();
+            return statusChanges;
         }
     }
 }

@@ -74,12 +74,12 @@ namespace ITSupport.WebUI.Controllers
             ticket.PriorityDropDown = _ticketService.SetDropDown(Constants.ConfigName.Priority);
             ticket.StatusDropDown = _ticketService.SetDropDown(Constants.ConfigName.Status);
             ticket.TypeDropDown = _ticketService.SetDropDown(Constants.ConfigName.Type);
+            TempData["OldStatus"] = ticket.Status;
             return View(ticket);
         }
         [HttpPost]
-        public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file)
+        public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file, TicketStatusHistoryViewModel statusModel)
         {
-
             if (file != null)
             {
                 model.Image = model.Id + "_" + DateTime.Now.Ticks + Path.GetExtension(file.FileName);
@@ -91,7 +91,8 @@ namespace ITSupport.WebUI.Controllers
             model.StatusDropDown = _ticketService.SetDropDown(Constants.ConfigName.Status);
             model.TypeDropDown = _ticketService.SetDropDown(Constants.ConfigName.Type);
             var deleteAttachmentIds = Request.Params["hdnDeleteAttachmentId"];
-            var ticket = _ticketService.EditTicket(model, deleteAttachmentIds);
+            statusModel.OldStatus = TempData["OldStatus"] as string;
+            _ticketService.EditTicket(model, deleteAttachmentIds, statusModel);
             return RedirectToAction("Index", "Ticket");
         }
         [PermissionActionFilter("TCKT", CheckRights.PermissionOrder.IsDelete)]
@@ -111,6 +112,11 @@ namespace ITSupport.WebUI.Controllers
         {
             TicketViewModel ticket = _ticketService.GetTicketById(Id);
             return View(ticket);
+        }
+        public ActionResult GetStatusHistory(Guid Id)
+        {
+            List<TicketStatusHistoryViewModel> statusHistory = _ticketService.GetStatusHistoryById(Id);
+            return PartialView("_TicketHistoryPartial", statusHistory);
         }
 
         public ActionResult GetComments(Guid Id)

@@ -81,5 +81,9 @@ namespace ITSupport.Services.Services
         {
             return _commonLookupRepository.Collection().Where(x => x.ConfigName == configName && !x.IsDeleted).ToList();
         }
+        public string GetConfigKeyById(Guid Id)
+        {
+            return _commonLookupRepository.Collection().Where(x => x.Id == Id && !x.IsDeleted).Select(x=>x.ConfigKey).FirstOrDefault();
+        }
     }
 }

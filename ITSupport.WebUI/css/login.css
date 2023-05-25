@@ -20,7 +20,7 @@ input:focus-visible, input:focus { outline: none;}
 
 
 /************** Login **************/
-.loginDiv { display: flex; align-items: center; justify-content: center; height: 100vh; margin-top:12px; background: url(../Images/image_2023_05_17T06_56_39_038Z.png) no-repeat center/cover; } 
+.loginDiv { display: flex; align-items: center; justify-content: center; height: 100vh; margin-top:12px; background: url(../Images/istockphoto-1059303688-612x612.jpg) no-repeat center/cover; } 
 .loginLogo { width: 130px; margin: 0 auto 35px; animation: 0; text-align: center; } 
 
 .loginBox { margin: 0 auto; padding: 60px; display: block; width: 100%; max-width: 500px; background: #fff; border-radius: 10px; }

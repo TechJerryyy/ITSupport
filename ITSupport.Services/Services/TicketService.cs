@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ITSupport.Services.Services
 {
@@ -15,12 +16,14 @@ namespace ITSupport.Services.Services
         private readonly ICommonLookupService _commonLookupService;
         private readonly IRepository<TicketAttachment> _ticketAttachmentRepository;
         private readonly IRepository<TicketComment> _ticketCommentRepository;
-        public TicketService(ITicketRepository ticketRepository, ICommonLookupService commonLookupService, IRepository<TicketAttachment> ticketAttachmentRepository, IRepository<TicketComment> ticketCommentRepository)
+        private readonly IRepository<TicketStatusHistory> _ticketStatusHistoryRepository;
+        public TicketService(ITicketRepository ticketRepository, ICommonLookupService commonLookupService, IRepository<TicketAttachment> ticketAttachmentRepository, IRepository<TicketComment> ticketCommentRepository, IRepository<TicketStatusHistory> ticketStatusHistoryRepository)
         {
             _ticketRepository = ticketRepository;
             _commonLookupService = commonLookupService;
             _ticketAttachmentRepository = ticketAttachmentRepository;
             _ticketCommentRepository = ticketCommentRepository;
+            _ticketStatusHistoryRepository = ticketStatusHistoryRepository;
         }
         public Ticket CreateTicket(TicketViewModel model)
         {
@@ -54,7 +57,7 @@ namespace ITSupport.Services.Services
             }
             return ticket;
         }
-        public Ticket EditTicket(TicketViewModel model, string deleteAttachmentIds)
+        public Ticket EditTicket(TicketViewModel model, string deleteAttachmentIds, TicketStatusHistoryViewModel statusModel)
         {
             var ticket = _ticketRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             ticket.Title = model.Title;
@@ -81,7 +84,7 @@ namespace ITSupport.Services.Services
                 _ticketAttachmentRepository.Insert(attachment);
                 _ticketAttachmentRepository.Commit();
             }
-            if(!string.IsNullOrEmpty(deleteAttachmentIds))
+            if (!string.IsNullOrEmpty(deleteAttachmentIds))
             {
                 string[] attachIds = deleteAttachmentIds.Split(',');
                 if (attachIds != null && attachIds.Length > 0)
@@ -94,6 +97,21 @@ namespace ITSupport.Services.Services
                         _ticketAttachmentRepository.Commit();
                     }
                 }
+            }
+            var status = _commonLookupService.GetConfigKeyById(model.StatusId);
+            if (statusModel.OldStatus != status)
+            {
+                TicketStatusHistory statusHistory = new TicketStatusHistory
+                {
+                    TicketId = ticket.Id,
+                    OldStatus = statusModel.OldStatus,
+                    NewStatus = status,
+                    CreatedBy = (Guid)HttpContext.Current.Session["UserId"],
+                    CreatedOn = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                };
+                _ticketStatusHistoryRepository.Insert(statusHistory);
+                _ticketStatusHistoryRepository.Commit();
             }
             return ticket;
         }
@@ -135,14 +153,14 @@ namespace ITSupport.Services.Services
         }
         public void DeleteComment(CommentViewModel model)
         {
-            var res = _ticketCommentRepository.Collection().Where(x=> x.Id == model.Id).FirstOrDefault();
+            var res = _ticketCommentRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             res.IsDeleted = true;
             _ticketCommentRepository.Update(res);
             _ticketCommentRepository.Commit();
         }
         public void EditComment(CommentViewModel model)
         {
-            var res = _ticketCommentRepository.Collection().Where(x=> x.Id == model.Id).FirstOrDefault();
+            var res = _ticketCommentRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             res.Comment = model.Comment;
             res.UpdatedOn = DateTime.Now;
             _ticketCommentRepository.Update(res);
@@ -151,6 +169,10 @@ namespace ITSupport.Services.Services
         public CommentViewModel GetCommentById(Guid Id)
         {
             return _ticketRepository.GetCommentById(Id);
+        }
+        public List<TicketStatusHistoryViewModel> GetStatusHistoryById(Guid Id)
+        {
+            return _ticketRepository.GetStatusHistoryById(Id);
         }
     }
 }

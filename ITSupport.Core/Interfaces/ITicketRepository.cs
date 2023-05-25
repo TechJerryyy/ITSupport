@@ -18,5 +18,6 @@ namespace ITSupport.Core.Interfaces
         TicketViewModel GetTicketById(Guid Id);
         List<CommentViewModel> GetComments(Guid Id);
         CommentViewModel GetCommentById(Guid Id);
+        List<TicketStatusHistoryViewModel> GetStatusHistoryById(Guid Id);
     }
 }

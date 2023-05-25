@@ -1,4 +1,7 @@
-﻿using ITSupport.WebUI.ActionFilters;
+﻿using ITSupport.Core.Interfaces;
+using ITSupport.Core.ViewModels;
+using ITSupport.Services.Services;
+using ITSupport.WebUI.ActionFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +14,22 @@ namespace ITSupport.WebUI.Controllers
     [UserAuth]
     public class HomeController : Controller
     {
+        private readonly ITicketService _ticketService;
+        private readonly IUserService _userService;
+        
+        public HomeController(ITicketService ticketService, IUserService userService)
+        {
+            _ticketService = ticketService;
+            _userService = userService;
+        }
         [PermissionActionFilter("HM", CheckRights.PermissionOrder.IsView)]
         public ActionResult Index()
         {
+            var tickets = _ticketService.GetTicket().ToList();
+            ViewBag.TotalTicket = tickets.Count();
+            ViewBag.New = tickets.Where(x => x.Status == "New").Count();
+            ViewBag.Pending = tickets.Where(x => x.Status == "Pending").Count();
+            ViewBag.Assigned = tickets.Where(x => x.Status == "Assigned").Count();
             return View();
         }
         public ActionResult About()

@@ -14,12 +14,13 @@ namespace ITSupport.Core.Interfaces
         List<DropDown> SetDropDown(string ConfigName);
         List<TicketViewModel> GetTicket();
         TicketViewModel GetTicketById(Guid Id);
-        Ticket EditTicket(TicketViewModel model, string deleteAttachmentIds);
+        Ticket EditTicket(TicketViewModel model, string deleteAttachmentIds, TicketStatusHistoryViewModel statusModel);
         void DeleteTicket(Guid Id);
         TicketComment CreateComment(CommentViewModel model);
         List<CommentViewModel> GetComments(Guid Id);
         void DeleteComment(CommentViewModel model);
         CommentViewModel GetCommentById(Guid Id);
         void EditComment(CommentViewModel model);
+        List<TicketStatusHistoryViewModel> GetStatusHistoryById(Guid Id);
     }
 }

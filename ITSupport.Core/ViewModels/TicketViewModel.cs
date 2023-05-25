@@ -34,6 +34,6 @@ namespace ITSupport.Core.ViewModels
         public string Attachment { get; set; }
         public List<TicketAttachment> MultiAttachment { get; set; }
         public int AttachmentCount { get; set; }
-        public string CreatedByName { get; set; }
+        public string CreatedByName { get; set; }     
     }
 }

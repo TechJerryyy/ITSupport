@@ -1,0 +1,20 @@
+﻿@model List<ITSupport.Core.ViewModels.TicketStatusHistoryViewModel>
+@using CustomHelper.CustomHelpers
+<table class="table" id="StatusHistoryTable" width="55%">
+    <tr><th colspan="2" style="font-size: 15px; color: white; text-align: center; background-color: #2C053F ">Status History</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong style="color: #2C053F ">@Html.DisplayFor(modelItem => item.StatusChangedByName)</strong>&nbsp;<small>(@HelperByExt.Timeago(item.CreatedOn))</small>
+                    </div>
+                    <div class="col-md-12">
+                        <h6><strong>Status </strong>Changed from <strong> @Html.DisplayFor(modelItem => item.OldStatus)</strong> <i class="glyphicon glyphicon-arrow-right"></i> <strong>@Html.DisplayFor(modelItem => item.NewStatus)</strong></h6>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    }
+</table>

@@ -15,5 +15,6 @@ namespace ITSupport.Core.Interfaces
         CommonLookup Edit(CommonLookup model);
         void Delete(CommonLookup model);
         List<CommonLookup> GetCommonLookupsByName(string configName);
+        string GetConfigKeyById(Guid Id);
     }
 }

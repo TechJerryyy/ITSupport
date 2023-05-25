@@ -18,14 +18,16 @@ namespace ITSupport.WebUI.Controllers
     {
         private readonly ILoginService _loginService;
         private readonly IRepository<UserRole> _userRoleManager;
+        private readonly IRepository<Role> _RoleManager;
         private readonly IFormMstService _formService;
         private readonly IPermissionService _permissionService;
-        public AccountController(ILoginService loginService, IRepository<UserRole> userRoleManager, IPermissionService permissionService, IFormMstService formService)
+        public AccountController(ILoginService loginService, IRepository<UserRole> userRoleManager, IPermissionService permissionService, IFormMstService formService, IRepository<Role> RoleManager)
         {
             _loginService = loginService;
             _userRoleManager = userRoleManager;
             _permissionService = permissionService;
             _formService = formService;
+            _RoleManager = RoleManager;
         }
         // GET: Account
         [AllowAnonymous]
@@ -53,7 +55,9 @@ namespace ITSupport.WebUI.Controllers
                     Session["UserName"] = user.UserName.ToString();
                     Session["UserId"] = user.Id;
                     Guid roleId = _userRoleManager.Collection().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
-                    Session["RoleId"] = roleId; 
+                    Session["RoleId"] = roleId;
+                    var rolecode = _RoleManager.Collection().Where(x => x.Id == roleId).Select(x => x.Code).FirstOrDefault();
+                    Session["RoleCode"] = rolecode;
                     var permission = _permissionService.GetPermission(roleId).ToList();
                     Session["permissions"] = permission;
                     return RedirectToAction("Index", "Home");

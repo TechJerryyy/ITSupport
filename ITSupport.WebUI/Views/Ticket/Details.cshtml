@@ -1,5 +1,5 @@
 ﻿@model ITSupport.Core.ViewModels.TicketViewModel
-    
+
 <html lang="en-us">
 <head>
     <style>
@@ -21,7 +21,7 @@
 </head>
 <body>
     <div class="col-md-5">
-        <table style="margin-top:180px">
+        <table style="margin-top:90px">
             <tr><th colspan="2" style="font-size: 25px; color: white; text-align: center; background-color: #2C053F ">Ticket Details</th></tr>
             <tr>
                 <td><strong>Name</strong></td>
@@ -53,8 +53,9 @@
             </tr>
         </table>
         &nbsp;
-        <div class="btn-toolbar" style="width: max-content; background-color: #dddddd"><a class="glyphicon glyphicon-chevron-left" href="/Ticket/Index">Back to List&nbsp;</a></div>
+        <div class="col-lg-12" id="StatusHistoryTable">
 
+        </div>
     </div>
     <div class="col-md-1">&nbsp;</div>
     <div class="col-md-6" style="margin-top:90px">
@@ -63,7 +64,11 @@
             <input type="text" placeholder="Enter comment here" id="Comment" />
         </div>
         @Html.Hidden("TicketId", Model.Id)
-        <div><button type="submit" class="btn btn-success" onclick="commentTicket()">Post</button>&nbsp;<button class="btn btn-default" onclick="commentTicketCancel()">Cancel</button></div>
+        <div>
+            <button type="submit" class="btn btn-success" onclick="commentTicket()">Post</button>&nbsp;
+            <button class="btn btn-default" onclick="commentTicketCancel()">Cancel</button>&nbsp;
+            <a class="btn btn-info" href="/Ticket/Index">Go Back</a>
+        </div>
         <div id="commentListTable">
 
         </div>
@@ -73,7 +78,19 @@
 <script>
     $(document).ready(function () {
         getCommentList();
+        StatusHistoryList();
     });
+    function StatusHistoryList() {
+        $.ajax({
+            type: 'GET',
+            url: "/Ticket/GetStatusHistory/" + $('#TicketId').val(),
+            success: function () {
+
+            }
+        }).done(function (partialViewResult) {
+            $("#StatusHistoryTable").html(partialViewResult);
+        })
+    }
     function commentTicket(e) {
         var comment = $("#Comment").val();
         var ticketId = $("#TicketId").val();
